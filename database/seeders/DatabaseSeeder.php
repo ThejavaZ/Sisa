@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'password' =>Hash::make('password'),
             'active'=> "S",
             'role'=>1,
-            'languaje'=>2,
+            'language'=>2,
             'status'=>1,
         ]);
     }

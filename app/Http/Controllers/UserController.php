@@ -20,25 +20,28 @@ define('table_name', 'users');
 
 class UserController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         if (Auth::user()->role != 1) return redirect()->route('home')->with('ERROR', 'Not autorized');
         $users = User::where('status', 1)->get();
         $index = 1;
         return view('users.index', compact('users','index'));
     }
 
-    public function create(){
+    public function create()
+    {
         return view('users.create');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string',
             'role' => 'required|integer',
-            'languaje' => 'required|integer',
+            'language' => 'required|integer',
             'active' => 'string|max:1',
             'status' => 'boolean|default:1',
         ]);
@@ -48,7 +51,8 @@ class UserController extends Controller
             "email"=>$data["email"],
             "password"=>$data["password"],
             "role"=>$data["role"],
-            "languaje"=>$data["languaje"],
+            "language"=>$data["language"],
+            "created_by" => Auth::user()->id,
             "active"=>"S",
             "status"=>1
         ]);
@@ -120,7 +124,7 @@ class UserController extends Controller
     public function destroy($id){
         $user = User::where('id',$id)->where('status',1)->first();
         $user->update(["active" => "N", "status" => 0, "updated_at" => now(), "deleted_by" => Auth::user()->id]);
-        return redirect()->route("users")->with("Succes", "Usuario eliminado correctamente");
+        return redirect()->route("users")->with("Success", "Usuario eliminado correctamente");
     }
 
     public function cancel($id){

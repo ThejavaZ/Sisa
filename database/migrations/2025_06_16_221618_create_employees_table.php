@@ -29,8 +29,9 @@ return new class extends Migration
             $table->string("RFC",13)->nullable()->index();
             $table->string("curp",18)->nullable()->index();
             $table->string("NSS",11)->nullable()->index();
-            $table->integer("branch_id");
             $table->string("emergency_contact")->nullable();
+            $table->string('employee_number',40);
+            $table->integer("branch_id");
             $table->integer('position_id');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
@@ -39,6 +40,8 @@ return new class extends Migration
             $table->string('active', 1)->default('S'); // N = No, S = Si
             $table->boolean('status')->default(1); // 1 = active, 0 = inactive
             $table->timestamps();
+            $table->dateTime('cancel_at')->nullable();
+            $table->softDeletes();
         });
     }
 

@@ -22,7 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role', // User role, default is 2 (user)
-        'languaje', // Language preference, default is 1 (Spanish)
+        'language', // Language preference, default is 1 (Spanish)
         'created_by',
         'updated_by',
         'cancel_by',

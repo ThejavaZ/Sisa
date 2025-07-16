@@ -47,7 +47,7 @@
         <p><strong>Nombre:</strong> {{ $user->name }}</p>
         <p><strong>Correo:</strong> {{ $user->email }}</p>
         <p><strong>rol:</strong> {{ $user->role == 1 ? 'Administrador' : 'Operador' }}</p>
-        <p><strong>Idioma:</strong> {{ $user->languaje == 1 ? 'Español' : 'Inglés' }}</p>
+        <p><strong>Idioma:</strong> {{ $user->language == 1 ? 'Español' : 'Inglés' }}</p>
         <p><strong>Activo</strong> {{ $user->active === 'S' ? 'Sí' : 'No' }}</p>
         <p><strong>Creado:</strong> {{ $user->created_at->format('d/m/Y H:i') }}</p>
         <p><strong>Actualizado:</strong> {{ $user->updated_at->format('d/m/Y H:i') }}</p>

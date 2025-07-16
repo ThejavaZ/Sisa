@@ -55,8 +55,8 @@
             </div>
 
             <div class="mb-3">
-                <label for="languaje" class="form-label">Idioma</label>
-                <select class="form-select" id="languaje" name="languaje" required>
+                <label for="language" class="form-label">Idioma</label>
+                <select class="form-select" id="language" name="language" required>
                     <option value="">Seleccione un Idioma</option>
                         <option value="1">Español</option>
                         <option value="2">Inglés</option>

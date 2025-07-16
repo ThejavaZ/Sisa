@@ -28,7 +28,9 @@ return new class extends Migration
             $table->integer('deleted_by')->nullable();
             $table->string('active',1)->default('S');
             $table->boolean('status')->default(1);
-            $table->timestamps();
+             $table->timestamps();
+            $table->dateTime('cancel_at')->nullable();
+            $table->softDeletes();
         });
     }
 

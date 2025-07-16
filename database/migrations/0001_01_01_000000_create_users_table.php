@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('role'); // 1 = admin, 2 = user
-            $table->integer('languaje'); // 1 = Spanish, 2 = English,  etc.
+            $table->integer('language'); // 1 = Spanish, 2 = English,  etc.
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->integer('cancel_by')->nullable();
@@ -27,6 +27,8 @@ return new class extends Migration
             $table->boolean('status')->default(1); // 1 = active, 0 = inactive
             $table->rememberToken();
             $table->timestamps();
+            $table->dateTime('cancel_at')->nullable();
+            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

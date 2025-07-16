@@ -111,9 +111,9 @@
                         @endif
                     </td>
                     <td>
-                        @if ($user->languaje == 1)
+                        @if ($user->language == 1)
                             <span class="badge bg-primary">Español</span>
-                        @elseif ($user->languaje == 2)
+                        @elseif ($user->language == 2)
                             <span class="badge bg-secondary">Inglés</span>
                         @endif
                     </td>
