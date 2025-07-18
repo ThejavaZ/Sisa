@@ -99,7 +99,7 @@
                     <div class="mb-3">
                         <label for="gender" class="form-label">Genero</label>
                         <select name="gender" id="gender" class="form-select" required>
-                            <option value="">Selecciona una opcion</option>
+                            <option value="" disabled selected>Selecciona una opcion</option>
                             <option value="M">Masculino</option>
                             <option value="F">Femenino</option>
                             <option value="O">Otro</option>
@@ -142,11 +142,17 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="employee_number">Numero de empleado</label>
+                        <input class="form-control" type="text" name="employee_number" id="employee_number" placeholder="Numero de empleado">
+                    </div>
+
+                    <div class="mb-3">
                         <label for="branch_id" class="form-label">Sucursal</label>
                         <select name="branch_id" id="branch_id" class="form-select" required>
-                            <option value="1">Hermosillo</option>
-                            <option value="2">Cautitlan</option>
-                            <option value="3">Phoenix</option>
+                            <option value="" selected disabled>Seleccione una sucursal</option>
+                            @foreach ($branches as $branch)
+                                <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+                            @endforeach
                         </select>
                     </div>
 

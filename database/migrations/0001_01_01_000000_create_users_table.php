@@ -27,7 +27,7 @@ return new class extends Migration
             $table->boolean('status')->default(1); // 1 = active, 0 = inactive
             $table->rememberToken();
             $table->timestamps();
-            $table->dateTime('cancel_at')->nullable();
+            $table->timestamp('cancel_at')->nullable();
             $table->softDeletes();
         });
 

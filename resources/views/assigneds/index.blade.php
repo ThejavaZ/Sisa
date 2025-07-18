@@ -13,20 +13,20 @@
 @section('content')
 
 <div class="d-flex justify-content-between mb-4">
-    <a class="btn btn-outline-danger" href="{{ route('assigneds') }}" target="_blank">
-        <i class="fas fa-file-pdf"></i>
+    <a class="btn btn-lg btn-outline-danger" href="{{ route('assigneds.pdf') }}" target="_blank">
+        <i class="fas fa-fw fa-file-pdf"></i>
     </a>
-    <a class="btn btn-outline-primary" href="{{ route('assigneds') }}" target="_blank">
-        <i class="fas fa-file-word"></i>
+    <a class="btn btn-lg btn-outline-primary" href="{{ route('assigneds.docx') }}" target="_blank">
+        <i class="fas fa-fw fa-file-word"></i>
     </a>
-    <a class="btn btn-outline-success" href="{{ route('assigneds') }}" target="_blank">
-        <i class="fas fa-file-excel"></i>
+    <a class="btn btn-lg btn-outline-success" href="{{ route('assigneds.xlsx') }}" target="_blank">
+        <i class="fas fa-fw fa-file-excel"></i>
     </a>
-    <a href="" class="btn btn-outline-info">
-        <i class="fas fa-envelope"></i>
+    <a class="btn btn-lg btn-outline-info"  href="{{ route('assigneds.email') }}">
+        <i class="fas fa-fw fa-envelope"></i>
     </a>
-    <a class="btn btn-outline-warning" href="{{ route('assigneds.create') }}">
-        <i class="fas fa-plus"></i>
+    <a class="btn btn-lg btn-outline-warning" href="{{ route('assigneds.create') }}">
+        <i class="fas fa-fw fa-plus"></i>
     </a>
 </div>
 
@@ -55,10 +55,16 @@
                     @endif
                     <th>Activo</th>
                     <th>Carta</th>
+                    @if (Auth::user()->role == 1)
                     <th>Creado hace</th>
                     <th>Creado</th>
                     <th>Actualizado hace</th>
                     <th>Actualizado</th>
+                    <th>Cancelado hace</th>
+                    <th>Cancelado</th>
+                    <th>Eliminado hace</th>
+                    <th>Eliminado</th>
+                    @endif
                     <th>Acciones</th>
                     <th>Reportes</th>
                 </tr>
@@ -80,10 +86,16 @@
                     @endif
                     <th>Activo</th>
                     <th>Carta</th>
+                    @if (Auth::user()->role == 1)
                     <th>Creado hace</th>
                     <th>Creado</th>
                     <th>Actualizado hace</th>
                     <th>Actualizado</th>
+                    <th>Cancelado hace</th>
+                    <th>Cancelado</th>
+                    <th>Eliminado hace</th>
+                    <th>Eliminado</th>
+                    @endif
                     <th>Acciones</th>
                     <th>Reportes</th>
                 </tr>
@@ -126,37 +138,53 @@
                             </a>
                         @endif
                     </td>
+                    @if (Auth::user()->role == 1)
                     <td>{{ $assigned->created_at->diffForHumans() }}</td>
                     <td>{{ $assigned->created_at->format('d/m/Y h:i:s') }}</td>
                     <td>{{ $assigned->created_at->diffForHumans() }}</td>
                     <td>{{ $assigned->created_at->format('d/m/Y h:i:s') }}</td>
+                    <td>{{ $assigned->created_at->diffForHumans() }}</td>
+                    <td>{{ $assigned->created_at->format('d/m/Y h:i:s') }}</td>
+                    <td>{{ $assigned->created_at->diffForHumans() }}</td>
+                    <td>{{ $assigned->created_at->format('d/m/Y h:i:s') }}</td>
+                    @endif
 
                     <td>
-                        <a class="btn btn-outline-info" href="{{ route('assigneds.show', $assigned->id) }}">
-                            <i class="fas fa-eye"></i>
+                        <a class="btn btn-lg btn-outline-info" href="{{ route('assigneds.show', $assigned->id) }}">
+                            <i class="fas fa-fw fa-eye"></i>
                         </a>
-                        <a class="btn btn-outline-warning" href="{{ route('assigneds.edit', $assigned->id) }}">
-                            <i class="fas fa-edit"></i>
+                        <a class="btn btn-lg btn-outline-warning" href="{{ route('assigneds.edit', $assigned->id) }}">
+                            <i class="fas fa-fw fa-edit"></i>
                         </a>
 
+                        <a class="btn btn-lg btn-outline-danger" href="">
+                            <div class="fas fa-fw fa-x"></div>
+                        </a>
+                        @if (Auth::user()->role == 1)
                         <form action="{{ route('assigneds.destroy', $assigned->id) }}" method="POST">
                             @csrf
                             @method('POST')
-                            <button type="submit" class="btn btn-outline-danger" onclick="return confirm('¿Estás seguro de eliminar esta asignacion?')">
-                                <i class="fas fa-trash"></i>
+                            <button type="submit" class="btn btn-lg btn-outline-danger" onclick="return confirm('¿Estás seguro de eliminar esta asignacion?')">
+                                <i class="fas fa-fw fa-trash"></i>
                             </button>
                         </form>
+                        @endif
+
                     </td>
                     <td>
                         <div class="btn-lg">
                             <a href="" class="btn btn-lg brn btn-outline-danger">
                                 <i class="fas fa-fw fa-file-pdf"></i>
                             </a>
-                            <a href="" class="btn">
-                                <i class="fas"></i>
+                            <a href="" class="btn btn-lg btn-outline-primary">
+                                <i class="fas fa-fw fa-file-word"></i>
                             </a>
-                            <a href="" class="btn"><i class="fas"></i></a>
-                            <a href="" class="btn"><i class="fas"></i></a>
+                            <a href="" class="btn btn-lg btn-outline-success">
+                                <i class="fas fa-fw fa-file-excel"></i>
+                            </a>
+                            <a href="" class="btn btn-lg btn-outline-info">
+                                <i class="fas fa-fw fa-envelope"></i>
+                            </a>
                         </div>
                     </td>
                 </tr>

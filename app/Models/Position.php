@@ -20,6 +20,13 @@ class Position extends Model
         'status'
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+        'cancel_at'  => 'datetime',
+    ];
+
     public function department()
     {
         return $this->belongsTo(Department::class, 'department_id');

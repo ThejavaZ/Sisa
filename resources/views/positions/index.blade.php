@@ -54,10 +54,16 @@
                     <th>Eliminado por</th>
                     @endif
                     <th>Activo</th>
+                    @if (Auth::user()->role == 1)
                     <th>Creado hace</th>
                     <th>Creado</th>
                     <th>Actualizado hace</th>
                     <th>Actualizado</th>
+                    <th>Creado hace</th>
+                    <th>Creado</th>
+                    <th>Actualizado hace</th>
+                    <th>Actualizado</th>
+                    @endif
                     <th>Acciones</th>
                     <th>Reportes</th>
                 </tr>
@@ -77,10 +83,16 @@
                     <th>Eliminado por</th>
                     @endif
                     <th>Activo</th>
+                    @if (Auth::user()->role == 1)
                     <th>Creado hace</th>
                     <th>Creado</th>
                     <th>Actualizado hace</th>
                     <th>Actualizado</th>
+                    <th>Creado hace</th>
+                    <th>Creado</th>
+                    <th>Actualizado hace</th>
+                    <th>Actualizado</th>
+                    @endif
                     <th>Acciones</th>
                     <th>Reportes</th>
                 </tr>
@@ -119,11 +131,16 @@
                             No
                         @endif
                     </td>
+                    @if (Auth::user()->role == 1)
                     <td>{{ $position->created_at->diffForHumans() }}</td>
                     <td>{{ $position->created_at->format('d/m/Y h:i:s') }}</td>
                     <td>{{ $position->created_at->diffForHumans() }}</td>
                     <td>{{ $position->created_at->format('d/m/Y h:i:s') }}</td>
-
+                    <td>{{ $position->created_at->diffForHumans() }}</td>
+                    <td>{{ $position->created_at->format('d/m/Y h:i:s') }}</td>
+                    <td>{{ $position->created_at->diffForHumans() }}</td>
+                    <td>{{ $position->created_at->format('d/m/Y h:i:s') }}</td>
+                    @endif
                     <td>
                         <a class="btn btn-lg btn-outline-info" href="{{ route('positions.show', $position->id) }}">
                             <i class="fas fa-fw fa-eye"></i>
@@ -131,14 +148,18 @@
                         <a class="btn btn-lg btn-outline-warning" href="{{ route('positions.edit', $position->id) }}">
                             <i class="fas fa-fw fa-edit"></i>
                         </a>
-
-                        <form action="{{ route('positions.destroy', $position->id) }}" method="POST">
-                            @csrf
-                            @method('POST')
-                            <button type="submit" class="btn btn-lg btn-outline-danger" onclick="return confirm('¿Estás seguro de eliminar esta computadora?')">
-                                <i class="fas fa-fw fa-trash"></i>
-                            </button>
-                        </form>
+                        <a class="btn btn-lg btn-outline-danger" href="{{ route('positions.edit', $position->id) }}">
+                            <i class="fas fa-fw fa-x"></i>
+                        </a>
+                        @if (Auth::user()->role == 1)
+                            <form action="{{ route('positions.destroy', $position->id) }}" method="POST">
+                                @csrf
+                                @method('POST')
+                                <button type="submit" class="btn btn-lg btn-outline-danger" onclick="return confirm('¿Estás seguro de eliminar esta computadora?')">
+                                    <i class="fas fa-fw fa-trash"></i>
+                                </button>
+                            </form>
+                        @endif
                     </td>
                     <td>
                         <a href="" class="btn btn-lg btn-outline-danger">

@@ -21,6 +21,13 @@ class Assigned extends Model
         'status',
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+        'cancel_at'  => 'datetime',
+    ];
+
     public function computer()
     {
         return $this->belongsTo(\App\Models\Computer::class,  'computer_id');

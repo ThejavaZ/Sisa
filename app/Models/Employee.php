@@ -18,6 +18,7 @@ class Employee extends Model
         'zip_code',
         'email',
         'phone',
+        'employee_number',
         'hire_date',
         'birth_date',
         'gender',
@@ -33,6 +34,13 @@ class Employee extends Model
         'deleted_by',
         'active',
         'status'
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+        'cancel_at'  => 'datetime',
     ];
 
     public function branch()

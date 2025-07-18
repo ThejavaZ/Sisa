@@ -59,22 +59,22 @@
             </div>
 
             <div class="mb-3">
-                <label for="languaje" class="form-label">Idioma</label>
-                <select class="form-select" id="languaje" name="languaje" required>
+                <label for="language" class="form-label">Idioma</label>
+                <select class="form-select" id="language" name="language" required>
                     <option value="">Seleccione un Idioma</option>
-                        <option value="1" {{ $user->languaje == 1 ? 'selected' : '' }}>Español</option>
-                        <option value="2" {{ $user->languaje == 2 ? 'selected' : '' }}>Inglés</option>
+                        <option value="1" {{ $user->language == 1 ? 'selected' : '' }}>Español</option>
+                        <option value="2" {{ $user->language == 2 ? 'selected' : '' }}>Inglés</option>
                 </select>
             </div>
 
             <div class="mb-3">
                 <label for="image" class="form-label">Foto</label>
                 <br/>
-                @if (asset('storage/users/' . $user->id . '.png'))
-                    <img src="{{ asset('storage/users/' . $user->id . '.png') }}" alt="Foto del empleado {{ $user->name }}" class="img-fluid rounded -ml-px w-25">
+                @if (asset('storage/users/img/' . $user->id . '.png'))
+                    <img src="{{ asset('storage/users/img/' . $user->id . '.png') }}" alt="Foto del empleado {{ $user->name }}" class="img-fluid rounded -ml-px w-25">
                 @endif
 
-                @if (asset('storage/users/' . $user->id . '.png'))
+                @if (asset('storage/users/img/' . $user->id . '.png'))
                     <div class="mb-3">
                         <label class="form-label">Borrar Foto</label>
                         <div class="form-check">

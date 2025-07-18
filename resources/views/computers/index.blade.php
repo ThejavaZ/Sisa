@@ -57,7 +57,7 @@
         <table id="datatablesSimple">
             <thead>
                 <tr>
-                    <th>No.</th>
+                     <th>No.</th>
                     <th>Nombre</th>
                     <th>Numero de serie</th>
                     <th>Marca</th>
@@ -75,10 +75,16 @@
                     <th>Eliminado por</th>
                     @endif
                     <th>Activo</th>
+                    @if (Auth::user()->role == 1)
                     <th>Creado hace</th>
                     <th>Creado</th>
                     <th>Actualizado hace</th>
                     <th>Actualizado</th>
+                    <th>Cancelado hace</th>
+                    <th>Cancelado</th>
+                    <th>Eliminado hace</th>
+                    <th>Eliminado</th>
+                    @endif
                     <th>Acciones</th>
                     <th>Reportes</th>
                 </tr>
@@ -103,10 +109,16 @@
                     <th>Eliminado por</th>
                     @endif
                     <th>Activo</th>
+                    @if (Auth::user()->role == 1)
                     <th>Creado hace</th>
                     <th>Creado</th>
                     <th>Actualizado hace</th>
                     <th>Actualizado</th>
+                    <th>Cancelado hace</th>
+                    <th>Cancelado</th>
+                    <th>Eliminado hace</th>
+                    <th>Eliminado</th>
+                    @endif
                     <th>Acciones</th>
                     <th>Reportes</th>
                 </tr>
@@ -126,10 +138,10 @@
                     <td>{{ $computer->warranty_until }}</td>
                     <td>{{ $computer->branch->name }}</td>
                     @if (Auth::user()->role == 1)
-                    <td>{{ $computer->created_user->name ?? "Sin datos" }}({{ $computer->created_user->email ?? "Sin datos" }})</td>
-                    <td>{{ $computer->updated_user->name ?? "Sin datos" }}({{ $computer->updated_user->email ?? "Sin datos" }})</td>
-                    <td>{{ $computer->cancel_user->name ?? "Sin datos" }}({{ $computer->cancel_user->email ?? "Sin datos" }})</td>
-                    <td>{{ $computer->deleted_user->name ?? "Sin datos" }}({{ $computer->deleted_user->email ?? "Sin datos" }})</td>
+                                        <td>{{ $computer->created_user->name?? "No info" }}({{ $computer->created_user->email?? "No info" }})</td>
+                    <td>{{ $computer->updated_user->name?? "No info" }}({{ $computer->updated_user->email?? "No info" }})</td>
+                    <td>{{ $computer->cancel_user->name?? "No info" }}({{ $computer->cancel_user->email?? "No info" }})</td>
+                    <td>{{ $computer->deleted_user->name?? "No info" }}({{ $computer->deleted_user->email?? "No info" }})</td>
                     @endif
                     <td>
                         @if ($computer->active == "S")
@@ -142,10 +154,16 @@
                             </span>
                         @endif
                     </td>
-                    <td>{{ $computer->created_at->diffForHumans() }}</td>
-                    <td>{{ $computer->created_at->format('d/m/Y h:i:s') }}</td>
-                    <td>{{ $computer->created_at->diffForHumans() }}</td>
-                    <td>{{ $computer->created_at->format('d/m/Y h:i:s') }}</td>
+                    @if (Auth::user()->role == 1)
+                        <td>{{ $computer->created_at->diffForHumans() ?? "No info" }}</td>
+                        <td>{{ $computer->created_at->format('d/m/Y h:i:s') ?? "No info" }}</td>
+                        <td>{{ $computer->created_at->diffForHumans() ?? "No info" }}</td>
+                        <td>{{ $computer->created_at->format('d/m/Y h:i:s') ?? "No info" }}</td>
+                        <td>{{ $computer->cancel_at?->diffForHumans() ?? "No info" }}</td>
+                        <td>{{ $computer->cancel_at?->format('d/m/Y h:i:s') ?? "No info" }}</td>
+                        <td>{{ $computer->deleted_at?->diffForHumans() ?? "No info"}}</td>
+                        <td>{{ $computer->deleted_at?->format('d/m/Y h:i:s') ?? "No info" }}</td>
+                    @endif
 
                     <td>
                         <a class="btn btn-lg btn-outline-info" href="{{ route('computers.show', $computer->id) }}">
@@ -162,7 +180,7 @@
                                 <i class="fas fa-fw fa-x"></i>
                             </button>
                         </form>
-                        @if (Auth::user()->id == 1)
+                        @if (Auth::user()->role == 1)
                         <form action="{{ route('computers.destroy', $computer->id) }}" method="POST">
                             @csrf
                             @method('POST')

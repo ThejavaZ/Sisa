@@ -27,6 +27,13 @@ class Computer extends Model
         "updated_at"
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+        'cancel_at'  => 'datetime',
+    ];
+
     public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id');

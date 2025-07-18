@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\EmployeeEmail;
+use App\Models\Branch;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Models\Position;
@@ -33,8 +34,9 @@ class EmployeeController extends Controller
      */
     public function create()
     {
+        $branches = Branch::where('status', 1)->get();
         $positions = Position::where('status', 1)->get();
-        return view('employees.create', compact('positions'));
+        return view('employees.create', compact('positions','branches'));
     }
 
     /**
@@ -53,6 +55,7 @@ class EmployeeController extends Controller
             'zip_code' => 'required|string|max:10',
             'email' => 'required|email|max:50|unique:employees,email',
             'phone' => 'nullable|string|max:20',
+            'employee_number' => 'required|string|max:40',
             'hire_date' => 'nullable|date',
             'birth_date' => 'nullable|date',
             'gender' => 'required|string',
@@ -85,7 +88,7 @@ class EmployeeController extends Controller
             'branch_id' => $data['branch_id'],
             'emergency_contact' => $data['emergency_contact'],
             'position_id' => $data['position_id'],
-            'user_id' => Auth::user()->id,
+            'created_by' => Auth::user()->id,
             'active' => 'S',
             'status' => 1,
         ]);

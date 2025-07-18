@@ -29,6 +29,10 @@ class User extends Authenticatable
         'deleted_by',
         'active', // Active status, default is 'S'
         'status', // Status, default is 1 (active)
+        'created_at',
+        'updated_at',
+        'cancel_at',
+        'deleted_at',
     ];
 
     /**
@@ -53,6 +57,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+        'cancel_at'  => 'datetime',
+    ];
 
     public function created_user()
     {

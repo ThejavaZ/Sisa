@@ -48,11 +48,12 @@
                     <th>Dirrección</th>
                     <th>Correo</th>
                     <th>Celular</th>
+                    <th>Numero de empleado</th>
                     <th>Fecha de contratacion</th>
                     <th>Fecha de cumpleaños</th>
                     <th>Genero</th>
                     <th>RFC</th>
-                    <th>curp</th>
+                    <th>CURP</th>
                     <th>NSS</th>
                     <th>Sucursal</th>
                     <th>Contacto de emergencia</th>
@@ -64,10 +65,16 @@
                     <th>Eliminado por</th>
                     @endif
                     <th>Activo</th>
+                    @if (Auth::user()->role == 1)
                     <th>Creado hace</th>
                     <th>Creado</th>
                     <th>Actualizado hace</th>
                     <th>Actualizado</th>
+                    <th>Cancelado hace</th>
+                    <th>Cancelado</th>
+                    <th>Eliminado hace</th>
+                    <th>Eliminado</th>
+                    @endif
                     <th>Acciones</th>
                     <th>Reportes</th>
                 </tr>
@@ -79,11 +86,12 @@
                     <th>Dirrección</th>
                     <th>Correo</th>
                     <th>Celular</th>
+                    <th>Numero de empleado</th>
                     <th>Fecha de contratacion</th>
                     <th>Fecha de cumpleaños</th>
                     <th>Genero</th>
                     <th>RFC</th>
-                    <th>curp</th>
+                    <th>CURP</th>
                     <th>NSS</th>
                     <th>Sucursal</th>
                     <th>Contacto de emergencia</th>
@@ -95,10 +103,16 @@
                     <th>Eliminado por</th>
                     @endif
                     <th>Activo</th>
+                    @if (Auth::user()->role == 1)
                     <th>Creado hace</th>
                     <th>Creado</th>
                     <th>Actualizado hace</th>
                     <th>Actualizado</th>
+                    <th>Cancelado hace</th>
+                    <th>Cancelado</th>
+                    <th>Eliminado hace</th>
+                    <th>Eliminado</th>
+                    @endif
                     <th>Acciones</th>
                     <th>Reportes</th>
                 </tr>
@@ -111,6 +125,7 @@
                     <td>{{ $employee->street }} #{{ $employee->exterior_number }} @if ($employee->interior_number != ""), #{{ $employee->interior_number }} @endif, {{ $employee->colony }}, {{ $employee->zip_code }}</td>
                     <td>{{ $employee->email }}</td>
                     <td>{{ $employee->phone }}</td>
+                    <td>{{ $employee->employee_number }}</td>
                     <td>{{ $employee->hire_date }}</td>
                     <td>{{ $employee->birth_date }}</td>
                     <td>
@@ -128,10 +143,12 @@
                     <td>{{ $employee->branch->name }}</td>
                     <td>{{ $employee->emergency_contact }}</td>
                     <td>{{ $employee->position->name }}</td>
+                    @if (Auth::user()->role == 1)
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
+                    @endif
                     <td>
                         @if ($employee->active == "S")
                             Si
@@ -139,10 +156,17 @@
                             No
                         @endif
                     </td>
+                    @if (Auth::user()->role == 1)
                     <td>{{ $employee->created_at->diffForHumans() }}</td>
                     <td>{{ $employee->created_at->format('d/m/Y h:i:s') }}</td>
                     <td>{{ $employee->created_at->diffForHumans() }}</td>
                     <td>{{ $employee->created_at->format('d/m/Y h:i:s') }}</td>
+                    <td>{{ $employee->created_at->diffForHumans() }}</td>
+                    <td>{{ $employee->created_at->format('d/m/Y h:i:s') }}</td>
+                    <td>{{ $employee->created_at->diffForHumans() }}</td>
+                    <td>{{ $employee->created_at->format('d/m/Y h:i:s') }}</td>
+
+                    @endif
 
                     <td>
                         <a class="btn btn-lg btn-outline-info" href="{{ route('employees.show', $employee->id) }}">
@@ -152,13 +176,18 @@
                             <i class="fas fa-fw fa-edit"></i>
                         </a>
 
-                        <form action="{{ route('employees.destroy', $employee->id) }}" method="POST">
-                            @csrf
-                            @method('POST')
-                            <button type="submit" class="btn btn-lg btn-outline-danger" onclick="return confirm('¿Estás seguro de eliminar esta computadora?')">
-                                <i class="fas fa-fw fa-trash"></i>
-                            </button>
-                        </form>
+                        <a class="btn btn-lg btn-outline-danger" href="{{ route('employees.edit', $employee->id) }}">
+                            <i class="fas fa-fw fa-x"></i>
+                        </a>
+                        @if (Auth::user()->role == 1)
+                            <form action="{{ route('employees.destroy', $employee->id) }}" method="POST">
+                                @csrf
+                                @method('POST')
+                                <button type="submit" class="btn btn-lg btn-outline-danger" onclick="return confirm('¿Estás seguro de eliminar esta computadora?')">
+                                    <i class="fas fa-fw fa-trash"></i>
+                                </button>
+                            </form>
+                        @endif
                     </td>
                     <td>
                         <div class="btn btn-group-lg">

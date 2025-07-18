@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string("active",1)->default("S"); // N = No, S = Si
             $table->boolean('status')->default(1); // 1 = active, 0 = inactive
             $table->timestamps();
-            $table->dateTime('cancel_at')->nullable();
+            $table->timestamp('cancel_at')->nullable();
             $table->softDeletes();
         });
     }

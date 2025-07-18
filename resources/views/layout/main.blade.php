@@ -9,7 +9,7 @@
         <title>@yield('top-title','falta top title') - Sisa</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
-        <link rel="shortcut icon" href="/sisa-logo.png" type="image/x-icon">
+        <link rel="shortcut icon" href="/logo.png" type="image/x-icon">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 

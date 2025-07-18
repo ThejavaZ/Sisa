@@ -60,30 +60,35 @@ class UserController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = $user->id . '.png';
-            $path = 'users/';
+            $path = 'users/img/';
             $storedPath = $image->storeAs($path, $imageName, 'public');
             $user->save();
         }
 
-        if ($user) return redirect()->route("users")->with("Succes", "Usuario creado correctamente");
-        else return redirect()->back()->with("Error");
+        if ($user) return redirect()->route("users")->with("success", "user created correctly");
+        else return redirect()->back()->with("error","user not created correctly");
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $user = User::where('id',$id)->where('status', 1)->first();
-        if ($user->id == 1) return redirect()->route('users')->with('ERROR', 'Don´t show admin');
-        if (Auth::user()->role != 1) return redirect()->route('home')->with('ERROR', 'user not autorized');
+        if ($user->id == 1) return redirect()->route('users')->with('error', "Don't show admin");
+        if (Auth::user()->role != 1) return redirect()->route('home')->with('error', 'Unauthorized user');
+        if (!$user) return redirect()->back()->with('error', 'User not exists');
         return view('users.show', compact('user'));
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $user = User::where('id',$id)->where('status',1)->first();
-        if ($user->id == 1) return redirect()->route('users')->with('ERROR', 'Don´t show admin');
-        if (Auth::user()->role != 1) return redirect()->route('home')->with('ERROR', 'user not autorized');
+        if ($user->id == 1) return redirect()->route('users')->with('error', "Don't show admin");
+        if (Auth::user()->role != 1) return redirect()->route('home')->with('error', 'Unauthorized user');
+        if (!$user) return redirect()->back()->with('error', 'User not exists');
         return view('users.edit', compact('user'));
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $user = User::where('id',$id)->where('status',1)->first();
 
         $data = $request->validate([
@@ -91,57 +96,57 @@ class UserController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'email' => 'required|email|unique:users,email,'. $user->id,
             'role' => 'required|integer',
-            'languaje' => 'required|integer',
+            'language' => 'required|integer',
         ]);
 
         $user->update([
             "name"=>$data['name'],
             "email"=>$data["email"],
             "role"=>$data["role"],
-            "languaje"=>$data["languaje"],
+            "language"=>$data["language"],
+            'updated_by' => Auth::user()->id,
             "active"=>"S",
             "status"=>1
-
         ]);
 
 
 
         if ($request->hasFile('image')) {
-            Storage::disk('public')->delete('users/' . $user->id . '.png');
+            Storage::disk('public')->delete('users/img/' . $user->id . '.png');
             $image = $request->file('image');
             $imageName = $user->id . '.png';
             $image->storeAs('users', $imageName, 'public');
         }
 
         if ($request->has('delete_image')) {
-            Storage::disk('public')->delete('users/' . $user->id . '.png');
+            Storage::disk('public')->delete('users/img/' . $user->id . '.png');
         }
-
-        return redirect()->route('users')->with('success', 'Empleado actualizado correctamente.');
-
+        return redirect()->route('users')->with('success', 'user updated correctly');
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $user = User::where('id',$id)->where('status',1)->first();
-        $user->update(["active" => "N", "status" => 0, "updated_at" => now(), "deleted_by" => Auth::user()->id]);
-        return redirect()->route("users")->with("Success", "Usuario eliminado correctamente");
+        $user->update(["active" => "N", "status" => 0, "deleted_at" => now(), "deleted_by" => Auth::user()->id]);
+        return redirect()->route("users")->with("success", "User deleted correctly");
     }
 
-    public function cancel($id){
+    public function cancel($id)
+    {
         $user = User::where('id',$id)->where('status',1)->first();
-        $user->update(["active" => "N", "updated_at" => now(), "cancel_by" =>Auth::user()->id]);
-        return redirect()->route("users")->with("Succes", "Usuario eliminado correctamente");
+        $user->update(["active" => "N", "cancel_at" => now(), "cancel_by"=>Auth::user()->id]);
+        return redirect()->route("users")->with("success", "user canceled correctly");
     }
 
-    public function changePassword($id){
+    public function changePassword($id)
+    {
         $user = User::where('id',$id)->where('status',1)->first();
-        $user->password = Hash::make($user->name);
-        $user->updated_at = now();
-        $user->save();
-        return redirect()->route("users")->with("success", "Contraseña cambiada correctamente");
+        $user->updated(['password'=>Hash::make($user->name), 'updated_by' => Auth::user()->id]);
+        return redirect()->route("users")->with("success", "password changed correctly");
     }
 
-    public function pdf($id = null, $download = true){
+    public function pdf($id = null, $download = true)
+    {
         if ($id) {
             $user = User::where('id', $id)->where('status', 1)->first();
             if ($user->id == 1) return redirect()->route('users')->with('ERROR', 'Don´t show admin');
@@ -149,7 +154,7 @@ class UserController extends Controller
             $pdf = Pdf::loadView('users.id', compact('user'));
             $filename = 'reporte_de_' . $user->id . '_' . $user->name . '_' . now()->format('dmY_His') . '.pdf';
         } else {
-            $users = User::where('status', 1)->get();
+            $users = User::where('status', 1)::where('id'!=1)->get();
             if (Auth::user()->role != 1) return redirect()->route('home')->with('ERROR', 'user not autorized');
             $pdf = Pdf::loadView('users.all', compact('users'));
             $filename = 'reporte_de_usuarios_' . now()->format('dmY_His') . '.pdf';
@@ -158,7 +163,8 @@ class UserController extends Controller
         else return $pdf->output();
     }
 
-    public function docx($id = null, $download = True){
+    public function docx($id = null, $download = True)
+    {
         $phpWord = new PhpWord;
         $section = $phpWord->addSection();
         # --- Header ---
@@ -272,7 +278,8 @@ class UserController extends Controller
         }
     }
 
-    public function xlsx($id = null, $download = True) {
+    public function xlsx($id = null, $download = True)
+    {
         # --- Header ---
             $spreadsheet = new Spreadsheet();
             $sheet = $spreadsheet->getActiveSheet();
@@ -359,7 +366,8 @@ class UserController extends Controller
             }
     }
 
-    public function email($id = null) {
+    public function email($id = null)
+    {
         $to = Auth::user()->email;
         $pdfContent = $this->pdf($id, false);
         $docxContent = $this->docx($id, false);

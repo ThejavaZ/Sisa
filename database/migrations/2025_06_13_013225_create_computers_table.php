@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string("active",1)->default("S");
             $table->boolean("status")->default(1);
             $table->timestamps();
-            $table->dateTime('cancel_at')->nullable();
+            $table->timestamp('cancel_at')->nullable();
             $table->softDeletes();
         });
     }

@@ -55,10 +55,16 @@
                     <th>Eliminado por</th>
                     @endif
                     <th>Activo</th>
+                    @if (Auth::user()->role == 1)
                     <th>Creado hace</th>
                     <th>Creado</th>
                     <th>Actualizado hace</th>
                     <th>Actualizado</th>
+                    <th>Cancelado hace</th>
+                    <th>Cancelado</th>
+                    <th>Eliminado hace</th>
+                    <th>Eliminado</th>
+                    @endif
                     <th>Acciones</th>
                     <th>Reportes</th>
                 </tr>
@@ -78,10 +84,16 @@
                     <th>Eliminado por</th>
                     @endif
                     <th>Activo</th>
+                    @if (Auth::user()->role == 1)
                     <th>Creado hace</th>
                     <th>Creado</th>
                     <th>Actualizado hace</th>
                     <th>Actualizado</th>
+                    <th>Cancelado hace</th>
+                    <th>Cancelado</th>
+                    <th>Eliminado hace</th>
+                    <th>Eliminado</th>
+                    @endif
                     <th>Acciones</th>
                     <th>Reportes</th>
                 </tr>
@@ -118,10 +130,10 @@
                         @endif
                     </td>
                     @if (Auth::user()->role == 1)
-                    <td>{{ $user->created_user->name ?? 'sin datos' }}({{ $user->created_user->email ?? null }})</td>
-                    <td>{{ $user->updated_user->name ?? 'sin datos' }}({{ $user->updated_user->email ?? null }})</td>
-                    <td>{{ $user->cancel_user->name ?? 'sin datos' }}({{ $user->cancel_user->email ?? null }})</td>
-                    <td>{{ $user->deleted_user->name ?? 'sin datos' }}({{ $user->deleted_user->email ?? null }})</td>
+                    <td>{{ $user->created_user->name ?? 'No info' }} {{  $user->created_user?->email ?? null}}</td>
+                    <td>{{ $user->updated_user->name ?? 'No info' }} {{ $user->updated_user->email ?? null }}</td>
+                    <td>{{ $user->cancel_user->name ?? 'No info' }} {{ $user->cancel_user->email ?? null }}</td>
+                    <td>{{ $user->deleted_user->name ?? 'No info' }} {{ $user->deleted_user->email ?? null }}</td>
                     @endif
                     <td>
                         @if ($user->active == 'S')
@@ -133,52 +145,59 @@
 
                         @endif
                     </td>
-                    <td>{{ $user->created_at->diffForHumans() }}</td>
-                    <td>{{ $user->created_at->format('d/m/Y h:i:s') }}</td>
-                    <td>{{ $user->updated_at->diffForHumans() }}</td>
-                    <td>{{ $user->updated_at->format('d/m/Y h:i:s') }}</td>
+                    @if (Auth::user()->role == 1)
+                    <td>{{ $user->created_at->diffForHumans() ?? "No info" }}</td>
+                    <td>{{ $user->created_at->format('d/m/Y h:i:s') ?? "No info" }}</td>
+                    <td>{{ $user->updated_at->diffForHumans() ?? "No info" }}</td>
+                    <td>{{ $user->updated_at->format('d/m/Y h:i:s') ?? "No info" }}</td>
+                    <td>{{ $user->cancel_at?->diffForHumans() ?? "No info" }}</td>
+                    <td>{{ $user->cancel_at?->format('d/m/Y h:i:s') ?? "No info" }}</td>
+                    <td>{{ $user->deleted_at?->diffForHumans() ?? "No info" }}</td>
+                    <td>{{ $user->deleted_at?->format('d/m/Y h:i:s') ?? "No info" }}</td>
+                    @endif
+
                     <td>
                         @if ($user->id != 1)
-                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-lg btn-outline-info">
-                            <i class="fas fa-fw fa-eye"></i>
-                        </a>
-                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-lg btn-outline-warning">
-                            <i class="fas fa-fw fa-edit"></i>
-                        </a>
+                            <a href="{{ route('users.show', $user->id) }}" class="btn btn-lg btn-outline-info">
+                                <i class="fas fa-fw fa-eye"></i>
+                            </a>
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-lg btn-outline-warning">
+                                <i class="fas fa-fw fa-edit"></i>
+                            </a>
 
-                        <form action="{{ route('users.cancel', $user->id) }}"  method="POST" class="d-inline">
-                            @csrf
-                            @method('POST')
-                            <button type="submit" class="btn btn-lg btn-outline-danger">
-                                <i class="fas fa-fw fa-x"></i>
-                            </button>
-                        </form>
+                            <form action="{{ route('users.cancel', $user->id) }}"  method="POST" class="d-inline">
+                                @csrf
+                                @method('POST')
+                                <button type="submit" class="btn btn-lg btn-outline-danger">
+                                    <i class="fas fa-fw fa-x"></i>
+                                </button>
+                            </form>
 
-                        <form action="{{ route('users.destroy', $user->id) }}"  method="POST" class="d-inline">
-                            @csrf
-                            @method('POST')
-                            <button type="submit" class="btn btn-lg btn-outline-danger">
-                                <i class="fas fa-fw fa-trash"></i>
-                            </button>
-                        </form>
+                            <form action="{{ route('users.destroy', $user->id) }}"  method="POST" class="d-inline">
+                                @csrf
+                                @method('POST')
+                                <button type="submit" class="btn btn-lg btn-outline-danger">
+                                    <i class="fas fa-fw fa-trash"></i>
+                                </button>
+                            </form>
                         @endif
                     </td>
                     <td>
                         @if ($user->id != 1)
                             <div class="btn-group-lg">
-                            <a href="{{ route('users.pdf', $user->id) }}" class="btn btn-outline-danger">
-                                <i class="fas fa-fw fa-file-pdf"></i>
-                            </a>
-                            <a href="{{ route('users.docx', $user->id) }}" class="btn btn-outline-primary">
-                                <i class="fas fa-fw fa-file-word"></i>
-                            </a>
-                            <a href="{{ route('users.xlsx', $user->id) }}" class="btn btn-outline-success">
-                                <i class="fas fa-fw fa-file-excel"></i>
-                            </a>
-                            <a href="{{ route('users.email', $user->id) }}" class="btn btn-outline-info">
-                                <i class="fas fa-fw fa-envelope"></i>
-                            </a>
-                        </div>
+                                <a href="{{ route('users.pdf', $user->id) }}" class="btn btn-outline-danger">
+                                    <i class="fas fa-fw fa-file-pdf"></i>
+                                </a>
+                                <a href="{{ route('users.docx', $user->id) }}" class="btn btn-outline-primary">
+                                    <i class="fas fa-fw fa-file-word"></i>
+                                </a>
+                                <a href="{{ route('users.xlsx', $user->id) }}" class="btn btn-outline-success">
+                                    <i class="fas fa-fw fa-file-excel"></i>
+                                </a>
+                                <a href="{{ route('users.email', $user->id) }}" class="btn btn-outline-info">
+                                    <i class="fas fa-fw fa-envelope"></i>
+                                </a>
+                            </div>
                         @endif
                     </td>
                 </tr>
