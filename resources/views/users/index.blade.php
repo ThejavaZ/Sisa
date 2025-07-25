@@ -158,7 +158,7 @@
 
                     <td>
                         @if ($user->id != 1)
-                            <a href="{{ route('users.show', $user->id) }}" class="btn btn-lg btn-outline-info">
+                            <a href="{{ route('users.show', encrypt($user->id)) }}" class="btn btn-lg btn-outline-info">
                                 <i class="fas fa-fw fa-eye"></i>
                             </a>
                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-lg btn-outline-warning">

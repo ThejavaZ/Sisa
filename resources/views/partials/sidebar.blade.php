@@ -2,51 +2,84 @@
     <div class="sb-sidenav-menu">
         <div class="nav">
             <div class="sb-sidenav-menu-heading">core</div>
+
             <a class="nav-link" href="{{ route('home') }}">
                 <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
-                @if (Auth::user()->languaje == 1)
+                @if (Auth::user()->language == 1)
                     Inicio
                 @else
                     Home
                 @endif
             </a>
+
             <a class="nav-link" href="{{ route('computers') }}">
                 <div class="sb-nav-link-icon"><i class="fas fa-computer"></i></div>
-                @if (Auth::user()->languaje == 1)
+                @if (Auth::user()->language == 1)
                     Computadoras
                 @else
                     Computers
                 @endif
             </a>
+
             <a class="nav-link" href="{{ route('assigneds') }}">
                 <div class="sb-nav-link-icon"><i class="fas fa-file"></i></div>
-                @if (Auth::user()->languaje == 1)
+                @if (Auth::user()->language == 1)
                     Asignadas
                 @else
                     Assignameds
                 @endif
 
             </a>
+
             <a class="nav-link" href="{{ route('employees') }}">
                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                @if (Auth::user()->languaje == 1)
+                @if (Auth::user()->language == 1)
                     Empleados
                 @else
                     Employees
                 @endif
             </a>
+
             <a class="nav-link" href="{{ route('positions') }}">
                 <div class="sb-nav-link-icon"><i class="fas fa-sitemap"></i></div>
-                @if (Auth::user()->languaje == 1)
+                @if (Auth::user()->language == 1)
                     Puestos
                 @else
                     Positions
                 @endif
             </a>
+
+            <a class="nav-link" href="{{ route('branches') }}">
+            <div class="sb-nav-link-icon"><i class="fas fa-shop"></i></div>
+                @if (Auth::user()->language == 1)
+                    Sucursales
+                @else
+                    Branches
+                @endif
+            </a>
+
+            <a class="nav-link" href="{{ route('brands') }}">
+                <div class="sb-nav-link-icon"><i class="fas fa-ticket"></i></div>
+                @if (Auth::user()->language == 1)
+                    Marcas
+                @else
+                    Brands
+                @endif
+            </a>
+
+            <a class="nav-link" href="{{ route('departments') }}">
+                <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                @if (Auth::user()->language == 1)
+                    Departamentos
+                @else
+                    Departments
+                @endif
+            </a>
+
             @if (Auth::user()->role == 1)
                 <a class="nav-link" href="{{ route('users') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
-                    @if (Auth::user()->languaje == 1)
+                    @if (Auth::user()->language == 1)
                         Usuarios
                     @else
                         Users
@@ -54,32 +87,7 @@
                 </a>
             @endif
 
-
-            <a class="nav-link" href="{{ route('home') }}">
-                <div class="sb-nav-link-icon"><i class="fas fa-shop"></i></div>
-                @if (Auth::user()->languaje == 1)
-                    Sucursales
-                @else
-                    Sucursales
-                @endif
-            </a>
-            <a class="nav-link" href="{{ route('home') }}">
-                <div class="sb-nav-link-icon"><i class="fas fa-ticket"></i></div>
-                @if (Auth::user()->languaje == 1)
-                    Marcas
-                @else
-                    Marcas
-                @endif
-            </a>
-            <a class="nav-link" href="{{ route('home') }}">
-                <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
-                @if (Auth::user()->languaje == 1)
-                    Departamentos
-                @else
-                    Departamentos
-                @endif
-            </a>
-
+            @if (Auth::user()->role == 0)
             <div class="sb-sidenav-menu-heading">Interface</div>
             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
@@ -92,7 +100,7 @@
                     <a class="nav-link" href="">Light Sidenav</a>
                 </nav>
             </div>
-             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                 <div class="sb-nav-link-icon"><i class="fas fa-person"></i></div>
                 Clientes
                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -103,7 +111,7 @@
                     <a class="nav-link" href="">Light Sidenav</a>
                 </nav>
             </div>
-             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                 <div class="sb-nav-link-icon"><i class="fas fa-dollar"></i></div>
                 Ventas
                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -114,7 +122,7 @@
                     <a class="nav-link" href="">Light Sidenav</a>
                 </nav>
             </div>
-             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                 Compras
                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -125,7 +133,7 @@
                     <a class="nav-link" href="">Light Sidenav</a>
                 </nav>
             </div>
-             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                 Proyectos
                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -136,7 +144,7 @@
                     <a class="nav-link" href="">Light Sidenav</a>
                 </nav>
             </div>
-             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                 Servicios
                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -147,7 +155,7 @@
                     <a class="nav-link" href="">Light Sidenav</a>
                 </nav>
             </div>
-             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                 Administracion
                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -158,7 +166,7 @@
                     <a class="nav-link" href="">Light Sidenav</a>
                 </nav>
             </div>
-             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                 Reportes
                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -169,7 +177,7 @@
                     <a class="nav-link" href="">Light Sidenav</a>
                 </nav>
             </div>
-             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                 Ahorros
                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -180,7 +188,7 @@
                     <a class="nav-link" href="">Light Sidenav</a>
                 </nav>
             </div>
-             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                 Licitaciones
                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -191,7 +199,7 @@
                     <a class="nav-link" href="">Light Sidenav</a>
                 </nav>
             </div>
-             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                 Recursos Humanos
                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -202,7 +210,7 @@
                     <a class="nav-link" href="">Light Sidenav</a>
                 </nav>
             </div>
-             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                 Sistemas
                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -213,11 +221,12 @@
                     <a class="nav-link" href="">Light Sidenav</a>
                 </nav>
             </div>
+            @endif
         </div>
     </div>
     <div class="sb-sidenav-footer">
         <div class="small">
-            @if (Auth::user()->languaje == 1)
+            @if (Auth::user()->language == 1)
                 sesion como:
             @else
                 session as:

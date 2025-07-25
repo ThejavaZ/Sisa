@@ -45,7 +45,6 @@
     </div>
     <div class="card-body">
         <div class="row mb-2">
-            <div class="col-md-6"><strong>ID:</strong> {{ $computer->id }}</div>
             <div class="col-md-6"><strong>Nombre:</strong> {{ $computer->name }}</div>
         </div>
         <div class="row mb-2">

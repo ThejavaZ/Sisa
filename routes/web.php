@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\HomeController;
 use \App\Http\Controllers\ComputerController;
 use \App\Http\Controllers\AssignedController;
+use App\Http\Controllers\BranchController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\DepartmentController;
 use \App\Http\Controllers\EmployeeController;
 use \App\Http\Controllers\PositionController;
 use \App\Http\Controllers\UserController;
@@ -16,18 +19,18 @@ Route::post('/auth/register/store',[HomeController::class, 'registerStore'])->na
 Route::post('/auth/login/store',[HomeController::class, 'loginStore'])->name('login.store');
 Route::get('/auth/forgot',[HomeController::class, 'forgotPassword'])->name('forgot.password');
 Route::post('/auth/forgot/store',[HomeController::class, 'forgotPasswordStore'])->name('forgot.password.store');
+# -- End Authenticated Routes ---
 
 
-# --- End common Routes
 Route::middleware(['auth'])->group(function (){
 
-        # -- End Authenticated Routes ---
+        # --- common routes ---
         Route::get('/',[HomeController::class, 'index'])->name('home');
         Route::get('/profile',[HomeController::class, 'profile'])->name('profile');
         Route::get('/settigs',[HomeController::class, 'settings'])->name('settings');
         Route::get('/logout',[HomeController::class, 'logout'])->name('logout');
+        # --- End common Routes ---
 
-        # --- common routes ---
         # --- Computers Routes ---
         Route::get('/computers', [ComputerController::class, 'index'])->name('computers');
         Route::get('/computers/create', [ComputerController::class, 'create'])->name('computers.create');
@@ -59,6 +62,7 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/assigneds/{id}', [AssignedController::class, 'show'])->name('assigneds.show');
         Route::get('/assigneds/{id}/edit',[AssignedController::class, 'edit'])->name('assigneds.edit');
         Route::post('/assigneds/{id}/update', [AssignedController::class, 'update'])->name('assigneds.update');
+        Route::post('/assigneds/{id}/cancel', [AssignedController::class, 'destroy'])->name('assigneds.cancel');
         Route::post('/assigneds/{id}', [AssignedController::class, 'destroy'])->name('assigneds.destroy');
 
         Route::get('/assigneds/card/{id}',[AssignedController::class, 'card'])->name('assigneds.card');
@@ -77,6 +81,7 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/employees/{id}', [EmployeeController::class, 'show'])->name('employees.show');
         Route::get('/employees/{id}/edit',[EmployeeController::class, 'edit'])->name('employees.edit');
         Route::post('/employees/{id}/update', [EmployeeController::class, 'update'])->name('employees.update');
+        Route::post('/employees/{id}/cancel', [EmployeeController::class, 'destroy'])->name('employees.cancel');
         Route::post('/employees/{id}', [EmployeeController::class, 'destroy'])->name('employees.destroy');
         # --- End Employees Routes ---
 
@@ -93,8 +98,60 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/positions/{id}', [PositionController::class, 'show'])->name('positions.show');
         Route::get('/positions/{id}/edit',[PositionController::class, 'edit'])->name('positions.edit');
         Route::post('/positions/{id}/update', [PositionController::class, 'update'])->name('positions.update');
+        Route::post('/positions/{id}/cancel', [PositionController::class, 'destroy'])->name('positions.cancel');
         Route::post('/positions/{id}', [PositionController::class, 'destroy'])->name('positions.destroy');
         # --- End Positions Routes ---
+
+        # --- Departments Routes ---
+        Route::get('/departments',[DepartmentController::class, 'index'])->name('departments');
+        Route::get('/departments/create',[DepartmentController::class, 'index'])->name('departments.create');
+        Route::get('/departments/store',[DepartmentController::class, 'index'])->name('departments.store');
+
+        Route::get('/departments/pdf/{id?}',[DepartmentController::class, 'index'])->name('departments.pdf');
+        Route::get('/departments/docx/{id?}',[DepartmentController::class, 'index'])->name('departments.docx');
+        Route::get('/departments/xlsx/{id?}',[DepartmentController::class, 'index'])->name('departments.xlsx');
+        Route::get('/departments/email/{id?}',[DepartmentController::class, 'index'])->name('departments.email');
+
+        Route::get('/departments/{id}',[DepartmentController::class, 'index'])->name('departments.show');
+        Route::get('/departments/{id}/edit',[DepartmentController::class, 'index'])->name('departments.edit');
+        Route::get('/departments/{id}/update',[DepartmentController::class, 'index'])->name('departments.update');
+        Route::get('/departments/{id}/cancel',[DepartmentController::class, 'index'])->name('departments.cancel');
+        Route::get('/departments/{id}',[DepartmentController::class, 'index'])->name('departments.destroy');
+        # --- End Departments Routes ---
+
+        # --- Brands Routes ---
+        Route::get('/brands',[BrandController::class, 'index'])->name('brands');
+        Route::get('/brands/create',[BrandController::class, 'index'])->name('brands.create');
+        Route::get('/brands/store',[BrandController::class, 'index'])->name('brands.store');
+
+        Route::get('/brands/pdf/{id?}',[BrandController::class, 'index'])->name('brands.pdf');
+        Route::get('/brands/docx/{id?}',[BrandController::class, 'index'])->name('brands.docx');
+        Route::get('/brands/xlsx/{id?}',[BrandController::class, 'index'])->name('brands.xlsx');
+        Route::get('/brands/email/{id?}',[BrandController::class, 'index'])->name('brands.email');
+
+        Route::get('/brands/{id}',[BrandController::class, 'index'])->name('brands.show');
+        Route::get('/brands/{id}/edit',[BrandController::class, 'index'])->name('brands.edit');
+        Route::get('/brands/{id}/update',[BrandController::class, 'index'])->name('brands.update');
+        Route::get('/brands/{id}/cancel',[BrandController::class, 'index'])->name('brands.cancel');
+        Route::get('/brands/{id}',[BrandController::class, 'index'])->name('brands.destroy');
+        # --- End Brands Routes ---
+
+        # --- Branches Routes ---
+        Route::get('/branches',[BranchController::class, 'index'])->name('branches');
+        Route::get('/branches/create',[BranchController::class, 'index'])->name('branches.create');
+        Route::get('/branches/store',[BranchController::class, 'index'])->name('branches.store');
+
+        Route::get('/branches/pdf/{id?}',[BranchController::class, 'index'])->name('branches.pdf');
+        Route::get('/branches/docx/{id?}',[BranchController::class, 'index'])->name('branches.docx');
+        Route::get('/branches/xlsx/{id?}',[BranchController::class, 'index'])->name('branches.xlsx');
+        Route::get('/branches/email/{id?}',[BranchController::class, 'index'])->name('branches.email');
+
+        Route::get('/branches/{id}',[BranchController::class, 'index'])->name('branches.show');
+        Route::get('/branches/{id}/edit',[BranchController::class, 'index'])->name('branches.edit');
+        Route::get('/branches/{id}/update',[BranchController::class, 'index'])->name('branches.update');
+        Route::get('/branches/{id}/cancel',[BranchController::class, 'index'])->name('branches.destroy');
+        Route::get('/branches/{id}',[BranchController::class, 'index'])->name('branches.destroy');
+        # --- End Branch Routes ---
 
         # --- Users Routes ---
         Route::get('/users', [UserController::class, 'index'])->name('users');

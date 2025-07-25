@@ -22,7 +22,7 @@ class HomeController extends Controller
             "email" => "required|string",
             "password"=>"required|string",
         ]);
-        $user = User::where('email', $data["email"])->where('active',"S")->first();
+        $user = User::where('email', $data["email"])->where('active',"S")->where('status',1)->first();
         $remember = $request->has('remember');
         if ($user && Hash::check($data["password"], $user->password)) {
             Auth::login($user);

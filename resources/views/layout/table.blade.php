@@ -1,19 +1,3 @@
-@extends('layout.main')
-
-@section('top-title', 'Marcas')
-
-@section('title', 'Marcas')
-
-@section('breadcrumb')
-    <li class="breadcrumb-item breadcrumb">
-        <a href="">Inicio</a>
-    </li>
-    <li class="breadcrumb breadcrumb-item active">
-        Marcas
-    </li>
-@endsection
-
-@section('content')
 <div class="d-flex btn-group-lg justify-content-between mb-4">
     <a href="" class="btn btn-lg btn-outline-danger">
         <i class="fas fa-fw fa-file-pdf"></i>
@@ -122,4 +106,3 @@
         </table>
     </div>
 </div>
-@endsection

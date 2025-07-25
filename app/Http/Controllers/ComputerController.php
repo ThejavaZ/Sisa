@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ComputerEmail;
+use App\Models\Branch;
+use App\Models\Brand;
 use App\Models\Computer;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -32,7 +35,10 @@ class ComputerController extends Controller
      */
     public function create()
     {
-        return view('computers.create');
+        $brands = Brand::where('status', 1)->get();
+        $branches = Branch::where('status', 1)->get();
+        return view('computers.create', compact('brands', 'branches'));
+
     }
 
     /**
@@ -81,7 +87,8 @@ class ComputerController extends Controller
      */
     public function show($id)
     {
-        $computer = Computer::where('id',$id)->where('status', 1)->first();
+
+        $computer = Computer::where('id',Crypt::decrypt($id))->where('status', 1)->first();
         return view('computers.show', compact('computer'));
     }
 
@@ -90,7 +97,10 @@ class ComputerController extends Controller
      */
     public function edit($id)
     {
-        $computer = Computer::where('id',$id)->where('status', 1)->first();
+        $brands = Brand::where('status', 1)->get();
+        $branches = Branch::where('status', 1)->get();
+        return view('computers.create', compact('brands', 'branches'));
+        $computer = Computer::where('id',Crypt::decrypt($id))->where('status', 1)->first();
         return view('computers.edit', compact('computer'));
     }
 
@@ -159,7 +169,7 @@ class ComputerController extends Controller
     public function pdf($id = null, $download = true)
     {
         if ($id){
-            $computer = Computer::where('id',$id)->where('status',1)->first();
+            $computer = Computer::where('id',decrypt($id))->where('status',1)->first();
             $pdf = Pdf::loadView('computers.id', compact('computer'));
         }
         else{
@@ -218,12 +228,11 @@ class ComputerController extends Controller
         $section->addTextBreak(1);
         # --- Main ---
         if ($id){
-        $computer = Computer::where('id', $id)->where('status', 1)->first();
+        $computer = Computer::where('id', decrypt($id))->where('status', 1)->first();
                 if (!$computer) {
                     return back()->with('error', 'Computadora no encontrada');
                 }
 
-                $section->addText("ID: {$computer->id}");
                 $section->addText("Nombre: {$computer->name}");
                 $section->addText("Número de serie: {$computer->serial_number}");
                 $section->addText("Marca: {$computer->brand_id}");
@@ -353,7 +362,7 @@ class ComputerController extends Controller
         }
         // COLUMNAS CON LOS DATOS en A6:L6 si puedes centrar y ajustar los datos lo agradeceria.
         $fila = 6;
-        $computers = $id ? [Computer::where('id', $id)->where('status', 1)->first()] : Computer::where('status', 1)->get();
+        $computers = $id ? [Computer::where('id', decrypt($id))->where('status', 1)->first()] : Computer::where('status', 1)->get();
         foreach ($computers as $computer) {
             if (!$computer) continue;
 

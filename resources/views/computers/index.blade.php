@@ -138,7 +138,7 @@
                     <td>{{ $computer->warranty_until }}</td>
                     <td>{{ $computer->branch->name }}</td>
                     @if (Auth::user()->role == 1)
-                                        <td>{{ $computer->created_user->name?? "No info" }}({{ $computer->created_user->email?? "No info" }})</td>
+                    <td>{{ $computer->created_user->name?? "No info" }}({{ $computer->created_user->email?? "No info" }})</td>
                     <td>{{ $computer->updated_user->name?? "No info" }}({{ $computer->updated_user->email?? "No info" }})</td>
                     <td>{{ $computer->cancel_user->name?? "No info" }}({{ $computer->cancel_user->email?? "No info" }})</td>
                     <td>{{ $computer->deleted_user->name?? "No info" }}({{ $computer->deleted_user->email?? "No info" }})</td>
@@ -155,10 +155,10 @@
                         @endif
                     </td>
                     @if (Auth::user()->role == 1)
-                        <td>{{ $computer->created_at->diffForHumans() ?? "No info" }}</td>
-                        <td>{{ $computer->created_at->format('d/m/Y h:i:s') ?? "No info" }}</td>
-                        <td>{{ $computer->created_at->diffForHumans() ?? "No info" }}</td>
-                        <td>{{ $computer->created_at->format('d/m/Y h:i:s') ?? "No info" }}</td>
+                        <td>{{ $computer->created_at?->diffForHumans() ?? "No info" }}</td>
+                        <td>{{ $computer->created_at?->format('d/m/Y h:i:s') ?? "No info" }}</td>
+                        <td>{{ $computer->updated_at?->diffForHumans() ?? "No info" }}</td>
+                        <td>{{ $computer->updated_at?->format('d/m/Y h:i:s') ?? "No info" }}</td>
                         <td>{{ $computer->cancel_at?->diffForHumans() ?? "No info" }}</td>
                         <td>{{ $computer->cancel_at?->format('d/m/Y h:i:s') ?? "No info" }}</td>
                         <td>{{ $computer->deleted_at?->diffForHumans() ?? "No info"}}</td>
@@ -166,14 +166,14 @@
                     @endif
 
                     <td>
-                        <a class="btn btn-lg btn-outline-info" href="{{ route('computers.show', $computer->id) }}">
+                        <a class="btn btn-lg btn-outline-info" href="{{ route('computers.show', encrypt($computer->id)) }}">
                             <i class="fas fa-fw fa-eye"></i>
                         </a>
-                        <a class="btn btn-lg btn-outline-warning" href="{{ route('computers.edit', $computer->id) }}">
+                        <a class="btn btn-lg btn-outline-warning" href="{{ route('computers.edit', encrypt($computer->id)) }}">
                             <i class="fas fa-fw fa-edit"></i>
                         </a>
 
-                        <form action="{{ route('computers.cancel', $computer->id) }}" method="POST">
+                        <form action="{{ route('computers.cancel', encrypt($computer->id)) }}" method="POST">
                             @csrf
                             @method('POST')
                             <button type="submit" class="btn btn-lg btn-outline-danger" onclick="return confirm('¿Estás seguro de cancelar esta computadora?')">
@@ -181,7 +181,7 @@
                             </button>
                         </form>
                         @if (Auth::user()->role == 1)
-                        <form action="{{ route('computers.destroy', $computer->id) }}" method="POST">
+                        <form action="{{ route('computers.destroy', encrypt($computer->id)) }}" method="POST">
                             @csrf
                             @method('POST')
                             <button type="submit" class="btn btn-lg btn-outline-danger" onclick="return confirm('¿Estás seguro de eliminar esta computadora?')">
@@ -192,19 +192,19 @@
 
                     </td>
                     <td>
-                        <a href="{{ route('computers.pdf', $computer->id) }}" class="btn btn-lg btn-outline-danger" target="_blank">
+                        <a href="{{ route('computers.pdf', encrypt($computer->id)) }}" class="btn btn-lg btn-outline-danger" target="_blank">
                             <i class="fas fa-fw fa-file-pdf"></i>
                         </a>
-                        <a href="{{ route('computers.docx', $computer->id) }}" class="btn btn-lg btn-outline-primary">
+                        <a href="{{ route('computers.docx', encrypt($computer->id)) }}" class="btn btn-lg btn-outline-primary">
                             <i class="fas fa-fw fa-file-word"></i>
                         </a>
-                        <a href="{{ route('computers.xlsx', $computer->id) }}" class="btn btn-lg btn-outline-success">
+                        <a href="{{ route('computers.xlsx', encrypt($computer->id)) }}" class="btn btn-lg btn-outline-success">
                             <i class="fas fa-fw fa-file-excel"></i>
                         </a>
                         <a href="">
 
                         </a>
-                        <a href="{{ route('computers.email', $computer->id) }}" class="btn btn-lg btn-outline-info">
+                        <a href="{{ route('computers.email', encrypt($computer->id)) }}" class="btn btn-lg btn-outline-info">
                             <i class="fas fa-fw fa-envelope"></i>
                         </a>
                     </td>

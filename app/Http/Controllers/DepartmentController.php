@@ -12,7 +12,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        $index = 1;
+        $departments = Department::where('status',1)->get();
+        return view('departments.index', compact('departments', 'index'));
     }
 
     /**

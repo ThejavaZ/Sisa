@@ -1,15 +1,15 @@
 @extends('layout.main')
 
-@section('top-title', 'Marcas')
+@section('top-title', 'Sucursales')
 
-@section('title', 'Marcas')
+@section('title', 'Sucursales')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item breadcrumb">
-        <a href="">Inicio</a>
+    <li class="breadcrumb-item">
+        <a href="{{ route('home') }}">Inicio</a>
     </li>
-    <li class="breadcrumb breadcrumb-item active">
-        Marcas
+    <li class="breadcrumb-item active">
+        Sucursales
     </li>
 @endsection
 
@@ -41,14 +41,11 @@
         <table id="datatablesSimple">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                    <th>Salary</th>
-                    <th>Salary</th>
+                    <th>No.</th>
+                    <th>Nombre</th>
+                    <th>Manager</th>
+                    <th>Dirreccion</th>
+                    <th>Celular</th>
                     <th>Acciones</th>
                     <th>Reportes</th>
 
@@ -56,29 +53,24 @@
             </thead>
             <tfoot>
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                    <th>Salary</th>
-                    <th>Salary</th>
-                    <th>Salary</th>
-                    <th>Salary</th>
+                    <th>No.</th>
+                    <th>Nombre</th>
+                    <th>Manager</th>
+                    <th>Dirreccion</th>
+                    <th>Celular</th>
+                    <th>Acciones</th>
+                    <th>Reportes</th>
 
                 </tr>
             </tfoot>
             <tbody>
+                @foreach ($branches as $branch)
                 <tr>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
-                    <td>61</td>
-                    <td>2011/04/25</td>
-                    <td>$320,800</td>
-                    <td>$320,800</td>
-                    <td>$320,800</td>
+                    <th>{{ $index++ }}</th>
+                    <th>{{ $branch->name }}</th>
+                    <th>{{ $branch->employee->name ?? "Sin dato"}}</th>
+                    <th>{{ $branch->street }}, {{ $branch->colony }}</th>
+                    <th>Celular</th>
                     <td>
                         <div class="btn btn-lg">
                             <a href="" class="btn btn-outline-info">
@@ -118,6 +110,7 @@
                         </div>
                     </td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

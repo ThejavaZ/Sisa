@@ -12,7 +12,9 @@ class BranchController extends Controller
      */
     public function index()
     {
-        //
+        $index = 1;
+        $branches = Branch::where('status',1)->get();
+        return view('branches.index', compact('branches', 'index'));
     }
 
     /**

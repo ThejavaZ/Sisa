@@ -53,9 +53,9 @@
                 <label for="brand_id" class="form-label">Marca</label>
                 <select name="brand_id" id="brand_id"  class="form-select">
                     <option value="" disabled selected>Seleccione una opcion</option>
-                    <option value="1">HP</option>
-                    <option value="2">Lenovo</option>
-                    <option value="3">Framework</option>
+                    @foreach ($brands as $brand)
+                        <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -93,9 +93,9 @@
                 <label for="branch_id" class="form-label">Sucursal</label>
                 <select name="branch_id" id="branch_id"  class="form-select">
                     <option value="" disabled selected>Seleccione una opcion</option>
-                    <option value="1">Hermosillo</option>
-                    <option value="2">Cautitlan</option>
-                    <option value="3">Phoenix</option>
+                    @foreach ($branches as $branch)
+                        <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+                    @endforeach
                 </select>
             </div>
 

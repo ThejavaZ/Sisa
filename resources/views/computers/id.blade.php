@@ -88,7 +88,7 @@
         <div class="logo">
             <!-- Puedes reemplazar con tu logo en base64 o URL -->
             <h2 style="color: #3498db; margin: 0;">
-                <img src="./sisa-logo.png" alt="SISA" width="150">
+                <img src="./logo.png" alt="SISA" width="150">
             </h2>
         </div>
         <h1>Reporte de {{$computer->name}}</h1>
@@ -100,13 +100,10 @@
         <h2>Datos del Equipo</h2>
         <div class="info-grid">
             <div class="info-item">
-                <strong>ID:</strong> {{ $computer->id }}
-            </div>
-            <div class="info-item">
                 <strong>Nombre:</strong> {{ $computer->name }}
             </div>
             <div class="info-item">
-                <strong>Marca:</strong> {{ $computer->brand_id }}
+                <strong>Marca:</strong> {{ $computer->brand->name }}
             </div>
             <div class="info-item">
                 <strong>Numero de serie:</strong> {{ $computer->serial_number }}
@@ -115,7 +112,7 @@
                 <strong>Modelo:</strong> {{ $computer->model }}
             </div>
             <div class="info-item">
-                <strong>Sistema Operativo:</strong> {{ $computer->OS }}
+                <strong>Sistema Operativo:</strong> {{ $computer->os }}
             </div>
         </div>
     </div>

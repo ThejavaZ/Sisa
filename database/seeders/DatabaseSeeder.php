@@ -3,10 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Position;
-use App\Models\Employee;
-use App\Models\Computer;
-use App\Models\Assigned;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -30,5 +26,7 @@ class DatabaseSeeder extends Seeder
             'language'=>2,
             'status'=>1,
         ]);
+
+
     }
 }

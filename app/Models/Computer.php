@@ -23,8 +23,6 @@ class Computer extends Model
         'deleted_by',
         'active',
         "status",
-        "created_at",
-        "updated_at"
     ];
 
     protected $casts = [

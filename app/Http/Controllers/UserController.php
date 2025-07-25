@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -39,7 +40,6 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string',
             'role' => 'required|integer',
             'language' => 'required|integer',
             'active' => 'string|max:1',
@@ -49,7 +49,7 @@ class UserController extends Controller
         $user = User::create([
             "name"=>$data['name'],
             "email"=>$data["email"],
-            "password"=>$data["password"],
+            "password"=>Hash::make("Sisa." . Date('Y')),
             "role"=>$data["role"],
             "language"=>$data["language"],
             "created_by" => Auth::user()->id,
@@ -71,8 +71,9 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $user = User::where('id',$id)->where('status', 1)->first();
+        $user = User::where('id',Crypt::decrypt($id))->where('status', 1)->first();
         if ($user->id == 1) return redirect()->route('users')->with('error', "Don't show admin");
+        if (!$user) return redirect()->back()->with('error', 'User not exists');
         if (Auth::user()->role != 1) return redirect()->route('home')->with('error', 'Unauthorized user');
         if (!$user) return redirect()->back()->with('error', 'User not exists');
         return view('users.show', compact('user'));
@@ -141,7 +142,7 @@ class UserController extends Controller
     public function changePassword($id)
     {
         $user = User::where('id',$id)->where('status',1)->first();
-        $user->updated(['password'=>Hash::make($user->name), 'updated_by' => Auth::user()->id]);
+        $user->updated(['password'=>Hash::make('Sisa.' . Date('Y')), 'updated_by' => Auth::user()->id]);
         return redirect()->route("users")->with("success", "password changed correctly");
     }
 

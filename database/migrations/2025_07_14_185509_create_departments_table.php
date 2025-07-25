@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('head_id');
+            $table->integer('head_id')->nullable();
             $table->string('cost_center', 20);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

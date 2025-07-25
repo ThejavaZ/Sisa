@@ -1,14 +1,3 @@
-@extends('layout.main')
-
-@section('top-title','Creando Usuario')
-
-@section('title', 'Creando Usuario')
-
-@section('breadcrumb')
-
-@endsection
-
-@section('content')
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -76,5 +65,3 @@
         </form>
     </div>
 </div>
-
-@endsection
