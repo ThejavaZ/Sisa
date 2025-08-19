@@ -1,10 +1,12 @@
 name: Sync on DOM Cloud
-"on":
+
+on:
   workflow_dispatch: {}
   push:
     branches:
       - main
       - master
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,8 +17,9 @@ jobs:
           webhook_url: https://my.domcloud.co/api/githubdeploy
           webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
           webhook_auth: ${{ secrets.WEBHOOK_AUTH }}
-          data: '{"commands":["git status"],"wait":1}'
+          data: '{"commands":["git pull","npm install","npm run build"],"wait":1}'
           verbose: true
+
       - name: Check deployment status
         uses: distributhor/workflow-webhook@v3
         env:
