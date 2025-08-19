@@ -141,8 +141,8 @@
 
     <!-- Foto del usuario -->
     <div class="photo-container">
-        @if(file_exists(public_path('storage/users/'.$user->id.'.png')))
-            <img src="{{ public_path('storage/users/'.$user->id.'.png') }}" class="user-photo" alt="Foto de perfil">
+        @if(file_exists(public_path('storage/users/img/'.$user->id.'.png')))
+            <img src="{{ public_path('storage/users/img/'.$user->id.'.png') }}" class="user-photo" alt="Foto de perfil">
         @else
             <div style="width: 120px; height: 120px; border-radius: 50%; background: #eee; border: 3px solid #ccc; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
                 Sin foto
@@ -155,9 +155,6 @@
     <div class="info-section">
         <h2>Información Básica</h2>
         <div class="info-grid">
-            <div class="info-item">
-                <strong>ID de Usuario:</strong> {{ $user->id }}
-            </div>
             <div class="info-item">
                 <strong>Nombre:</strong> {{ $user->name }}
             </div>
@@ -182,8 +179,11 @@
                 <span class="role-badge">
                     @switch($user->role)
                         @case(1) Administrador @break
-                        @case(2) Editor @break
-                        @case(3) Usuario @break
+                        @case(2) Gerente @break
+                        @case(3) Operador @break
+                        @case(4) Contador @break
+                        @case(5) Cliente @break
+                        @case(6) Proveedor @break
                         @default Rol desconocido ({{ $user->role }})
                     @endswitch
                 </span>
@@ -191,7 +191,7 @@
             <div class="info-item">
                 <strong>Idioma:</strong>
                 <span class="language-badge">
-                    @switch($user->languaje)
+                    @switch($user->language)
                         @case(1) Español @break
                         @case(2) Inglés @break
                         @case(3) Francés @break

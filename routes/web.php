@@ -104,53 +104,53 @@ Route::middleware(['auth'])->group(function (){
 
         # --- Departments Routes ---
         Route::get('/departments',[DepartmentController::class, 'index'])->name('departments');
-        Route::get('/departments/create',[DepartmentController::class, 'index'])->name('departments.create');
-        Route::get('/departments/store',[DepartmentController::class, 'index'])->name('departments.store');
+        Route::get('/departments/create',[DepartmentController::class, 'create'])->name('departments.create');
+        Route::post('/departments/store',[DepartmentController::class, 'store'])->name('departments.store');
 
-        Route::get('/departments/pdf/{id?}',[DepartmentController::class, 'index'])->name('departments.pdf');
-        Route::get('/departments/docx/{id?}',[DepartmentController::class, 'index'])->name('departments.docx');
-        Route::get('/departments/xlsx/{id?}',[DepartmentController::class, 'index'])->name('departments.xlsx');
-        Route::get('/departments/email/{id?}',[DepartmentController::class, 'index'])->name('departments.email');
+        Route::get('/departments/pdf/{id?}',[DepartmentController::class, 'pdf'])->name('departments.pdf');
+        Route::get('/departments/docx/{id?}',[DepartmentController::class, 'docx'])->name('departments.docx');
+        Route::get('/departments/xlsx/{id?}',[DepartmentController::class, 'xlsx'])->name('departments.xlsx');
+        Route::get('/departments/email/{id?}',[DepartmentController::class, 'email'])->name('departments.email');
 
-        Route::get('/departments/{id}',[DepartmentController::class, 'index'])->name('departments.show');
-        Route::get('/departments/{id}/edit',[DepartmentController::class, 'index'])->name('departments.edit');
-        Route::get('/departments/{id}/update',[DepartmentController::class, 'index'])->name('departments.update');
-        Route::get('/departments/{id}/cancel',[DepartmentController::class, 'index'])->name('departments.cancel');
-        Route::get('/departments/{id}',[DepartmentController::class, 'index'])->name('departments.destroy');
+        Route::get('/departments/{id}',[DepartmentController::class, 'show'])->name('departments.show');
+        Route::get('/departments/{id}/edit',[DepartmentController::class, 'edit'])->name('departments.edit');
+        Route::post('/departments/{id}/update',[DepartmentController::class, 'update'])->name('departments.update');
+        Route::post('/departments/{id}/cancel',[DepartmentController::class, 'cancel'])->name('departments.cancel');
+        Route::post('/departments/{id}',[DepartmentController::class, 'destroy'])->name('departments.destroy');
         # --- End Departments Routes ---
 
         # --- Brands Routes ---
         Route::get('/brands',[BrandController::class, 'index'])->name('brands');
-        Route::get('/brands/create',[BrandController::class, 'index'])->name('brands.create');
-        Route::get('/brands/store',[BrandController::class, 'index'])->name('brands.store');
+        Route::get('/brands/create',[BrandController::class, 'create'])->name('brands.create');
+        Route::post('/brands/store',[BrandController::class, 'store'])->name('brands.store');
 
-        Route::get('/brands/pdf/{id?}',[BrandController::class, 'index'])->name('brands.pdf');
-        Route::get('/brands/docx/{id?}',[BrandController::class, 'index'])->name('brands.docx');
-        Route::get('/brands/xlsx/{id?}',[BrandController::class, 'index'])->name('brands.xlsx');
-        Route::get('/brands/email/{id?}',[BrandController::class, 'index'])->name('brands.email');
+        Route::get('/brands/pdf/{id?}',[BrandController::class, 'pdf'])->name('brands.pdf');
+        Route::get('/brands/docx/{id?}',[BrandController::class, 'docx'])->name('brands.docx');
+        Route::get('/brands/xlsx/{id?}',[BrandController::class, 'xlsx'])->name('brands.xlsx');
+        Route::get('/brands/email/{id?}',[BrandController::class, 'email'])->name('brands.email');
 
-        Route::get('/brands/{id}',[BrandController::class, 'index'])->name('brands.show');
-        Route::get('/brands/{id}/edit',[BrandController::class, 'index'])->name('brands.edit');
-        Route::get('/brands/{id}/update',[BrandController::class, 'index'])->name('brands.update');
-        Route::get('/brands/{id}/cancel',[BrandController::class, 'index'])->name('brands.cancel');
-        Route::get('/brands/{id}',[BrandController::class, 'index'])->name('brands.destroy');
+        Route::get('/brands/{id}',[BrandController::class, 'show'])->name('brands.show');
+        Route::get('/brands/{id}/edit',[BrandController::class, 'edit'])->name('brands.edit');
+        Route::post('/brands/{id}/update',[BrandController::class, 'update'])->name('brands.update');
+        Route::post('/brands/{id}/cancel',[BrandController::class, 'cancel'])->name('brands.cancel');
+        Route::post('/brands/{id}',[BrandController::class, 'destroy'])->name('brands.destroy');
         # --- End Brands Routes ---
 
         # --- Branches Routes ---
         Route::get('/branches',[BranchController::class, 'index'])->name('branches');
-        Route::get('/branches/create',[BranchController::class, 'index'])->name('branches.create');
-        Route::get('/branches/store',[BranchController::class, 'index'])->name('branches.store');
+        Route::get('/branches/create',[BranchController::class, 'create'])->name('branches.create');
+        Route::post('/branches/store',[BranchController::class, 'show'])->name('branches.store');
 
-        Route::get('/branches/pdf/{id?}',[BranchController::class, 'index'])->name('branches.pdf');
-        Route::get('/branches/docx/{id?}',[BranchController::class, 'index'])->name('branches.docx');
-        Route::get('/branches/xlsx/{id?}',[BranchController::class, 'index'])->name('branches.xlsx');
-        Route::get('/branches/email/{id?}',[BranchController::class, 'index'])->name('branches.email');
+        Route::get('/branches/pdf/{id?}',[BranchController::class, 'pdf'])->name('branches.pdf');
+        Route::get('/branches/docx/{id?}',[BranchController::class, 'docx'])->name('branches.docx');
+        Route::get('/branches/xlsx/{id?}',[BranchController::class, 'xlsx'])->name('branches.xlsx');
+        Route::get('/branches/email/{id?}',[BranchController::class, 'email'])->name('branches.email');
 
-        Route::get('/branches/{id}',[BranchController::class, 'index'])->name('branches.show');
-        Route::get('/branches/{id}/edit',[BranchController::class, 'index'])->name('branches.edit');
-        Route::get('/branches/{id}/update',[BranchController::class, 'index'])->name('branches.update');
-        Route::get('/branches/{id}/cancel',[BranchController::class, 'index'])->name('branches.destroy');
-        Route::get('/branches/{id}',[BranchController::class, 'index'])->name('branches.destroy');
+        Route::get('/branches/{id}',[BranchController::class, 'show'])->name('branches.show');
+        Route::get('/branches/{id}/edit',[BranchController::class, 'edit'])->name('branches.edit');
+        Route::post('/branches/{id}/update',[BranchController::class, 'update'])->name('branches.update');
+        Route::post('/branches/{id}/cancel',[BranchController::class, 'cancel'])->name('branches.cancel');
+        Route::post('/branches/{id}',[BranchController::class, 'destroy'])->name('branches.destroy');
         # --- End Branch Routes ---
 
         # --- Users Routes ---

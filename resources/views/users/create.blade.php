@@ -44,8 +44,14 @@
                 <label for="role" class="form-label">Rol</label>
                 <select class="form-select" id="role" name="role" required>
                     <option value="">Seleccione un rol</option>
-                        <option value="1">Administrador</option>
-                        <option value="2">Operador</option>
+                        @if (Auth::user()->role == 1)
+                            <option value="1">Administrador</option>
+                        @endif
+                        <option value="2">Gerente</option>
+                        <option value="3">Operador</option>
+                        <option value="4">Contador</option>
+                        <option value="5">Cliente</option>
+                        <option value="6">Proveedor</option>
                 </select>
             </div>
 

@@ -39,6 +39,14 @@
         <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('POST')
+            @if (Auth::user()->role == 1)
+            <div class="mb-3">
+                <label for="" class="form-label">ID</label>
+                <input type="text" class="form-control" id="" name="" @disabled(true) value="{{ $user->id }}">
+            </div>
+            @endif
+
+
             <div class="mb-3">
                 <label for="name" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="name" name="name" required value="{{ $user->name }}">
@@ -52,9 +60,15 @@
             <div class="mb-3">
                 <label for="role" class="form-label">Rol</label>
                 <select class="form-select" id="role" name="role" required>
-                    <option value="">Seleccione un rol</option>
+                    <option value="" disabled>Seleccione un rol</option>
+                        @if (Auth::user()->role == 1)
                         <option value="1" {{ $user->role == 1 ? 'selected' : '' }}>Administrador</option>
-                        <option value="2" {{ $user->role == 2 ? 'selected' : '' }}>Operador</option>
+                        @endif
+                        <option value="2" {{ $user->role == 2 ? 'selected' : '' }} >Gerente</option>
+                        <option value="3" {{ $user->role == 3 ? 'selected' : '' }} >Operador</option>
+                        <option value="4" {{ $user->role == 4 ? 'selected' : '' }} >Contador</option>
+                        <option value="5" {{ $user->role == 5 ? 'selected' : '' }} >Cliente</option>
+                        <option value="6" {{ $user->role == 6 ? 'selected' : '' }} >Proveedor</option>
                 </select>
             </div>
 
@@ -88,13 +102,21 @@
 
             <div class="mb-3">
                 <label for="active" class="form-label">Activo</label>
-                <select type="file" class="form-control" id="active" name="active">
+                <select class="form-control" id="active" name="active">
                     <option value="S" {{ $user->active == "S" ? 'selected' : '' }}>Si</option>
                     <option value="N" {{ $user->active == "N" ? 'selected' : '' }}>No</option>
                 </select>
             </div>
+            @if (Auth::user()->role == 1)
+             <div class="mb-3">
+                <label for="status" class="form-label">Estado</label>
+                <select class="form-control" id="status" name="status">
+                    <option value="1" {{ $user->status == "1" ? 'selected' : '' }}>Activo</option>
+                    <option value="0" {{ $user->status == "0" ? 'selected' : '' }}>Inactivo</option>
+                </select>
+            </div>
 
-
+            @endif
 
 
 

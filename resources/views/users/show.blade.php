@@ -21,19 +21,19 @@
 @section('content')
 
 <div class="d-flex btn-group-lg justify-content-between mb-4">
-    <a class="btn  btn-outline-danger" href="{{ route('users.pdf', $user->id) }}" target="_blank">
+    <a class="btn  btn-outline-danger" href="{{ route('users.pdf', encrypt($user->id)) }}" target="_blank">
         <i class="fas fa-fw fa-file-pdf"></i>
     </a>
-    <a class="btn btn-outline-primary" href="{{ route('users.docx', $user->id) }}" target="_blank">
+    <a class="btn btn-outline-primary" href="{{ route('users.docx', encrypt($user->id)) }}" target="_blank">
         <i class="fas fa-fw fa-file-word"></i>
     </a>
-    <a class="btn btn-outline-success" href="{{ route('users.xlsx', $user->id) }}" target="_blank">
+    <a class="btn btn-outline-success" href="{{ route('users.xlsx', encrypt($user->id)) }}" target="_blank">
         <i class="fas fa-fw fa-file-excel"></i>
     </a>
-    <a href="" class="btn btn-outline-info">
+    <a href="" class="btn btn-outline-info" @disabled(true)>
         <i class="fas fa-fw fa-envelope"></i>
     </a>
-    <a class="btn btn-outline-warning" href="{{ route('users.edit', $user->id) }}">
+    <a class="btn btn-outline-warning" href="{{ route('users.edit', encrypt($user->id)) }}">
         <i class="fas fa-fw fa-edit"></i>
     </a>
 </div>
@@ -43,18 +43,42 @@
         <i class="fas fa-laptop me-2"></i> Información de la Computadora
     </div>
     <div class="card-body">
+        @if (Auth::user()->role == 1)
         <p><strong>ID:</strong> {{ $user->id }}</p>
+        @endif
         <p><strong>Nombre:</strong> {{ $user->name }}</p>
         <p><strong>Correo:</strong> {{ $user->email }}</p>
         <p><strong>rol:</strong> {{ $user->role == 1 ? 'Administrador' : 'Operador' }}</p>
         <p><strong>Idioma:</strong> {{ $user->language == 1 ? 'Español' : 'Inglés' }}</p>
         <p><strong>Activo</strong> {{ $user->active === 'S' ? 'Sí' : 'No' }}</p>
-        <p><strong>Creado:</strong> {{ $user->created_at->format('d/m/Y H:i') }}</p>
-        <p><strong>Actualizado:</strong> {{ $user->updated_at->format('d/m/Y H:i') }}</p>
+        @if (Auth::user()->role == 1)
+        <p><strong>Estado</strong> {{ $user->status == 1 ? 'Activo' : 'Inactivo' }}</p>
+        <ul class="list-group">
+            <li class="list list-group-item"><strong>Creado por:</strong> {{ $user->created_user?->name . " - " . $user->created_user?->email ?? "Sin info" }}</li>
+            <li class="list list-group-item"><strong>Fecha de creacion:</strong> {{ $user->created_at?->format('d/m/Y H:i') ?? "Sin info" }}</li>
+            <li class="list list-group-item"><strong>Creado hace:</strong> {{ $user->created_at?->diffForHumans() ?? "Sin info" }}</li>
+        </ul>
+        <ul class="list-group">
+            <li class="list list-group-item"><strong>Actualizado por:</strong> {{ $user->updated_user?->name . " - " . $user->updated_user?->email ?? "Sin info" }}</li>
+            <li class="list list-group-item"><strong>Fecha de actualizacion:</strong> {{ $user->updated_at?->format('d/m/Y H:i') ?? "Sin info" }}</li>
+            <li class="list list-group-item"><strong>Actualizado hace:</strong> {{ $user->created_at?->diffForHumans() ?? "Sin info" }}</li>
+        </ul>
+        <ul class="list-group">
+            <li class="list list-group-item"><strong>Cancelado por:</strong> {{ $user->canceled_user?->name . " - " . $user->canceled_user?->email ?? "Sin info" }}</li>
+            <li class="list list-group-item"><strong>Fecha de cancelacion:</strong> {{ $user->canceled_at?->format('d/m/Y H:i') ?? "Sin info" }}</li>
+            <li class="list list-group-item"><strong>Cancelado hace:</strong> {{ $user->canceled_at?->diffForHumans() ?? "Sin info" }}</li>
+        </ul>
+        <ul class="list-group">
+            <li class="list list-group-item"><strong>Creado por:</strong> {{ $user->deleted_user?->name . " - " . $user->deleted_user?->email ?? "Sin info" }}</li>
+            <li class="list list-group-item"><strong>Fecha de creacion:</strong> {{ $user->deleted_at?->format('d/m/Y H:i') ?? "Sin info" }}</li>
+            <li class="list list-group-item"><strong>Creado hace:</strong> {{ $user->deleted_at?->diffForHumans() ?? "Sin info" }}</li>
+        </ul>
+        @endif
+
         <p><strong>Foto:</strong>
-        @if(asset('storage/users/' . $user->id . '.png'))
+        @if(asset('storage/users/img/' . $user->id . '.png'))
             <div class="mt-3">
-                <img src="{{ asset('storage/users/' . $user->id . '.png') }}" alt="Foto del empleado {{ $user->name }}" class="img-fluid rounded -ml-px w-25">
+                <img src="{{ asset('storage/users/img/' . $user->id . '.png') }}" alt="Foto de {{ $user->name }}" class="img-fluid rounded -ml-px w-25">
             </div>
         @else
             <div class="mt-3">

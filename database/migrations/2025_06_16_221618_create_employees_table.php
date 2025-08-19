@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('exterior_number', 20);
             $table->string('colony', 40);
             $table->string('zip_code',10);
-            $table->string('email',50)->unique();
+            $table->string('email',60)->unique();
             $table->string('phone',20);
             $table->date("hire_date");
             $table->date("birth_date");

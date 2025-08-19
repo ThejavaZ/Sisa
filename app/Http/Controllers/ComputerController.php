@@ -87,7 +87,6 @@ class ComputerController extends Controller
      */
     public function show($id)
     {
-
         $computer = Computer::where('id',Crypt::decrypt($id))->where('status', 1)->first();
         return view('computers.show', compact('computer'));
     }
@@ -97,11 +96,10 @@ class ComputerController extends Controller
      */
     public function edit($id)
     {
+        $computer = Computer::where('id',Crypt::decrypt($id))->where('status', 1)->first();
         $brands = Brand::where('status', 1)->get();
         $branches = Branch::where('status', 1)->get();
-        return view('computers.create', compact('brands', 'branches'));
-        $computer = Computer::where('id',Crypt::decrypt($id))->where('status', 1)->first();
-        return view('computers.edit', compact('computer'));
+        return view('computers.edit', compact('brands', 'branches', 'computer'));
     }
 
     /**
@@ -169,7 +167,7 @@ class ComputerController extends Controller
     public function pdf($id = null, $download = true)
     {
         if ($id){
-            $computer = Computer::where('id',decrypt($id))->where('status',1)->first();
+            $computer = Computer::where('id', $id)->where('status',1)->first();
             $pdf = Pdf::loadView('computers.id', compact('computer'));
         }
         else{

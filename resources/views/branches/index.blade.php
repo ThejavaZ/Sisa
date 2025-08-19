@@ -14,23 +14,23 @@
 @endsection
 
 @section('content')
-<div class="d-flex btn-group-lg justify-content-between mb-4">
-    <a href="" class="btn btn-lg btn-outline-danger">
-        <i class="fas fa-fw fa-file-pdf"></i>
-    </a>
+    <div class="d-flex btn-group-lg justify-content-between mb-4">
+        <a href="{{ route('branches.pdf') }}" class="btn btn-lg btn-outline-danger">
+            <i class="fas fa-fw fa-file-pdf"></i>
+        </a>
 
-    <a href="" class="btn btn-lg btn-outline-primary">
-        <i class="fas fa-fw fa-file-word"></i>
-    </a>
+        <a href="{{ route('branches.docx') }}" class="btn btn-lg btn-outline-primary">
+            <i class="fas fa-fw fa-file-word"></i>
+        </a>
 
-    <a href="" class="btn btn-lg btn-outline-success">
-        <i class="fas fa-fw fa-file-excel"></i>
-    </a>
+        <a href="{{ route('branches.xlsx') }}" class="btn btn-lg btn-outline-success">
+            <i class="fas fa-fw fa-file-excel"></i>
+        </a>
 
-    <a href="" class="btn btn-lg btn-outline-warning">
-        <i class="fas fa-fw fa-plus"></i>
-    </a>
-</div>
+        <a href="{{ route('branches.create') }}" class="btn btn-lg btn-outline-warning">
+            <i class="fas fa-fw fa-plus"></i>
+        </a>
+    </div>
 
 <div class="card mb-4">
     <div class="card-header">
@@ -43,76 +43,73 @@
                 <tr>
                     <th>No.</th>
                     <th>Nombre</th>
-                    <th>Manager</th>
-                    <th>Dirreccion</th>
+                    <th>Direccion</th>
                     <th>Celular</th>
                     <th>Acciones</th>
                     <th>Reportes</th>
-
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <th>No.</th>
+                     <th>No.</th>
                     <th>Nombre</th>
-                    <th>Manager</th>
-                    <th>Dirreccion</th>
+                    <th>Direccion</th>
                     <th>Celular</th>
                     <th>Acciones</th>
                     <th>Reportes</th>
-
                 </tr>
             </tfoot>
             <tbody>
-                @foreach ($branches as $branch)
+
+            @foreach ($branches as $branch)
                 <tr>
-                    <th>{{ $index++ }}</th>
-                    <th>{{ $branch->name }}</th>
-                    <th>{{ $branch->employee->name ?? "Sin dato"}}</th>
-                    <th>{{ $branch->street }}, {{ $branch->colony }}</th>
-                    <th>Celular</th>
+
+                <td>{{ $index++ }}</td>
+                    <td>{{ $branch->name }}</td>
+                    <td>{{ $branch->street }} {{ $branch->exterior_number }} {{ $branch->interior_number }} {{ $branch->colony }} {{ $branch->zip_code }}</td>
+                    <td>{{ $branch->phone }}</td>
                     <td>
                         <div class="btn btn-lg">
-                            <a href="" class="btn btn-outline-info">
+                            <a href="{{ route('branches.show', encrypt($branch->id)) }}" class="btn btn-outline-info">
                                 <i class="fas fa-fw fa-eye"></i>
                             </a>
 
-                            <a href="" class="btn btn-outline-warning">
+                            <a href="{{ route('branches.edit', encrypt($branch->id)) }}" class="btn btn-outline-warning">
                                 <i class="fas fa-fw fa-edit"></i>
                             </a>
-
-                            <a href="" class="btn btn-outline-danger">
-                                <i class="fas fa-fw fa-x"></i>
-                            </a>
-
-                            <a href="" class="btn btn-outline-danger">
-                                <i class="fas fa-fw fa-trash"></i>
-                            </a>
+                            <form action="{{ route('branches.destroy', encrypt($branch->id)) }}" method="POST">
+                                @csrf
+                                @method('POST')
+                                <button type="submit" class="btn btn-outline-danger">
+                                    <i class="fas fa-fw fa-trash"></i>
+                                </button>
+                            </form>
                         </div>
                     </td>
                     <td>
                         <div class="btn btn-lg">
-                            <a href="" class="btn btn-outline-danger">
+                            <a href="{{ route('branches.pdf', encrypt($branch->id)) }}" class="btn btn-outline-danger">
                                 <i class="fas fa-fw fa-file-pdf"></i>
                             </a>
 
-                            <a href="" class="btn btn-outline-primary">
+                            <a href="{{ route('branches.docx', encrypt($branch->id)) }}" class="btn btn-outline-primary">
                                 <i class="fas fa-fw fa-file-word"></i>
                             </a>
 
-                            <a href="" class="btn btn-outline-success">
+                            <a href="{{ route('branches.xlsx', encrypt($branch->id)) }}" class="btn btn-outline-success">
                                 <i class="fas fa-fw fa-file-excel"></i>
                             </a>
 
-                            <a href="" class="btn btn-outline-info">
-                                <i class="fas fa-fw fa-envelope"></i>
-                            </a>
                         </div>
                     </td>
                 </tr>
-                @endforeach
+            @endforeach
+                <tr>
+
+                </tr>
             </tbody>
         </table>
     </div>
 </div>
+
 @endsection

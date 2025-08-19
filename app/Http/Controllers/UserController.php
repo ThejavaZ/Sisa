@@ -17,13 +17,11 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpWord\PhpWord;
 
-define('table_name', 'users');
-
 class UserController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->role != 1) return redirect()->route('home')->with('ERROR', 'Not autorized');
+        if (Auth::user()->role > 2) return redirect()->route('home')->with('ERROR', 'Not autorized');
         $users = User::where('status', 1)->get();
         $index = 1;
         return view('users.index', compact('users','index'));
@@ -74,16 +72,13 @@ class UserController extends Controller
         $user = User::where('id',Crypt::decrypt($id))->where('status', 1)->first();
         if ($user->id == 1) return redirect()->route('users')->with('error', "Don't show admin");
         if (!$user) return redirect()->back()->with('error', 'User not exists');
-        if (Auth::user()->role != 1) return redirect()->route('home')->with('error', 'Unauthorized user');
-        if (!$user) return redirect()->back()->with('error', 'User not exists');
         return view('users.show', compact('user'));
     }
 
     public function edit($id)
     {
-        $user = User::where('id',$id)->where('status',1)->first();
+        $user = User::where('id',Crypt::decrypt($id))->where('status',1)->first();
         if ($user->id == 1) return redirect()->route('users')->with('error', "Don't show admin");
-        if (Auth::user()->role != 1) return redirect()->route('home')->with('error', 'Unauthorized user');
         if (!$user) return redirect()->back()->with('error', 'User not exists');
         return view('users.edit', compact('user'));
     }
@@ -109,8 +104,6 @@ class UserController extends Controller
             "active"=>"S",
             "status"=>1
         ]);
-
-
 
         if ($request->hasFile('image')) {
             Storage::disk('public')->delete('users/img/' . $user->id . '.png');
@@ -149,7 +142,7 @@ class UserController extends Controller
     public function pdf($id = null, $download = true)
     {
         if ($id) {
-            $user = User::where('id', $id)->where('status', 1)->first();
+            $user = User::where('id', Crypt::decrypt($id))->where('status', 1)->first();
             if ($user->id == 1) return redirect()->route('users')->with('ERROR', 'Don´t show admin');
             if (Auth::user()->role != 1) return redirect()->route('home')->with('ERROR', 'user not autorized');
             $pdf = Pdf::loadView('users.id', compact('user'));

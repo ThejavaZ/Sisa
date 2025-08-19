@@ -48,7 +48,7 @@
                     Positions
                 @endif
             </a>
-
+            @if (Auth::user()->name == 0)
             <a class="nav-link" href="{{ route('branches') }}">
             <div class="sb-nav-link-icon"><i class="fas fa-shop"></i></div>
                 @if (Auth::user()->language == 1)
@@ -75,8 +75,10 @@
                     Departments
                 @endif
             </a>
+            @endif
 
-            @if (Auth::user()->role == 1)
+
+            @if (Auth::user()->role <= 2)
                 <a class="nav-link" href="{{ route('users') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                     @if (Auth::user()->language == 1)

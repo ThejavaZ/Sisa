@@ -1,127 +1,33 @@
 @extends('layout.main')
 
-@section('top-title', 'Departamentos')
-
-@section('title', 'Departamentos')
-
-@section('breadcrumb')
-    <li class="breadcrumb-item breadcrumb">
-        <a href="">Inicio</a>
-    </li>
-    <li class="breadcrumb breadcrumb-item active">
-        Departamentos
-    </li>
-@endsection
-
 @section('content')
-
-<div class="d-flex btn-group-lg justify-content-between mb-4">
-    <a href="" class="btn btn-lg btn-outline-danger">
-        <i class="fas fa-fw fa-file-pdf"></i>
-    </a>
-
-    <a href="" class="btn btn-lg btn-outline-primary">
-        <i class="fas fa-fw fa-file-word"></i>
-    </a>
-
-    <a href="" class="btn btn-lg btn-outline-success">
-        <i class="fas fa-fw fa-file-excel"></i>
-    </a>
-
-    <a href="" class="btn btn-lg btn-outline-warning">
-        <i class="fas fa-fw fa-plus"></i>
-    </a>
-</div>
-
-<div class="card mb-4">
-    <div class="card-header">
-        <i class="fas fa-table me-1"></i>
-        Departamentos
-    </div>
-    <div class="card-body">
-        <table id="datatablesSimple">
-            <thead>
+    <h1>Departments</h1>
+    <a href="{{ route('departments.create') }}" class="btn btn-primary">Create Department</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Cost Center</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($departments as $department)
                 <tr>
-                    <th>No.</th>
-                    <th>Nombre</th>
-                    <th>Gerente</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                    <th>Salary</th>
-                    <th>Salary</th>
-                    <th>Acciones</th>
-                    <th>Reportes</th>
-
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                    <th>Salary</th>
-                    <th>Salary</th>
-                    <th>Salary</th>
-                    <th>Salary</th>
-
-                </tr>
-            </tfoot>
-            <tbody>
-                <tr>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
-                    <td>61</td>
-                    <td>2011/04/25</td>
-                    <td>$320,800</td>
-                    <td>$320,800</td>
-                    <td>$320,800</td>
+                    <td>{{ $index++ }}</td>
+                    <td>{{ $department->name }}</td>
+                    <td>{{ $department->cost_center }}</td>
                     <td>
-                        <div class="btn btn-lg">
-                            <a href="" class="btn btn-outline-info">
-                                <i class="fas fa-fw fa-eye"></i>
-                            </a>
-
-                            <a href="" class="btn btn-outline-warning">
-                                <i class="fas fa-fw fa-edit"></i>
-                            </a>
-
-                            <a href="" class="btn btn-outline-danger">
-                                <i class="fas fa-fw fa-x"></i>
-                            </a>
-
-                            <a href="" class="btn btn-outline-danger">
-                                <i class="fas fa-fw fa-trash"></i>
-                            </a>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="btn btn-lg">
-                            <a href="" class="btn btn-outline-danger">
-                                <i class="fas fa-fw fa-file-pdf"></i>
-                            </a>
-
-                            <a href="" class="btn btn-outline-primary">
-                                <i class="fas fa-fw fa-file-word"></i>
-                            </a>
-
-                            <a href="" class="btn btn-outline-success">
-                                <i class="fas fa-fw fa-file-excel"></i>
-                            </a>
-
-                            <a href="" class="btn btn-outline-info">
-                                <i class="fas fa-fw fa-envelope"></i>
-                            </a>
-                        </div>
+                        <a href="{{ route('departments.show', Crypt::encrypt($department->id)) }}" class="btn btn-info">View</a>
+                        <a href="{{ route('departments.edit', Crypt::encrypt($department->id)) }}" class="btn btn-warning">Edit</a>
+                        <form action="{{ route('departments.destroy', $department->id) }}" method="POST" style="display:inline-block;">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                     </td>
                 </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
+            @endforeach
+        </tbody>
+    </table>
 @endsection
