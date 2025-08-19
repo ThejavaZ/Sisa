@@ -46,7 +46,7 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    @if (Auth::user()->role == 1)
+                    @if (Auth::user()->role <= 1)
                     <th>ID</th>
                     @endif
                     <th>Nombre</th>
@@ -55,7 +55,7 @@
                     <th>Rol</th>
                     <th>Idioma</th>
                     <th>Activo</th>
-                    @if (Auth::user()->role == 1)
+                    @if (Auth::user()->role <= 1)
                     <th>Estado</th>
                     <th>Creado Por</th>
                     <th>Fecha de creacion</th>
@@ -70,7 +70,7 @@
                     <th>Fecha de eliminacion</th>
                     <th>Eliminado hace</th>
                     @endif
-                    @if (Auth::user()->role < 5)
+                    @if (Auth::user()->role <= 4)
                     <th>Acciones</th>
                     @endif
                     <th>Reportes</th>
@@ -79,7 +79,7 @@
             <tfoot>
                 <tr>
                     <th>No.</th>
-                    @if (Auth::user()->role == 1)
+                    @if (Auth::user()->role <= 1)
                     <th>ID</th>
                     @endif
                     <th>Nombre</th>
@@ -88,7 +88,7 @@
                     <th>Rol</th>
                     <th>Idioma</th>
                     <th>Activo</th>
-                    @if (Auth::user()->role == 1)
+                    @if (Auth::user()->role <= 1)
                     <th>Estado</th>
                     <th>Creado Por</th>
                     <th>Fecha de creado</th>
@@ -103,7 +103,7 @@
                     <th>Eliminado hace</th>
                     <th>Eliminado</th>
                     @endif
-                    @if (Auth::user()->role < 5)
+                    @if (Auth::user()->role <= 4)
                     <th>Acciones</th>
                     @endif
                     <th>Reportes</th>
@@ -113,7 +113,7 @@
                 @foreach ($users as $user)
                 <tr>
                     <td>{{ $index++ }}</td>
-                    @if (Auth::user()->role == 1)
+                    @if (Auth::user()->role <= 1)
                     <td>{{ $user->id }}</th>
                     @endif
                     <td>{{ $user->name }}</td>
@@ -132,6 +132,10 @@
                     <td>
 
                         @switch($user->role)
+                            @case(0)
+                                <span class="badge bg-black">Root</span>
+                                @break
+
                             @case(1)
                                 <span class="badge bg-primary">Administrador</span>
                                 @break
@@ -168,14 +172,14 @@
                                 @break
 
                             @case(2)
-                                <span class="badge bg-gray-200">Inglés</span>
+                                <span class="badge bg-primary">Inglés</span>
                                 @break
 
                             @default
                                 <span class="badge bg-dark">Desconocido</span>
                         @endswitch
                     </td>
-                    @if (Auth::user()->role == 1)
+                    @if (Auth::user()->role <= 1)
 
                     @endif
                     <td>
@@ -191,7 +195,7 @@
                             <span class="badge bg-black">Desconocido</span>
                         @endswitch
                     </td>
-                    @if (Auth::user()->role == 1)
+                    @if (Auth::user()->role <= 1)
                     <td>
                         @switch($user->status)
                             @case(1)
@@ -218,7 +222,7 @@
                     <td>{{ $user->deleted_at?->diffForHumans() ?? "No info" }}</td>
                     <td>{{ $user->deleted_at?->format('d/m/Y h:i:s') ?? "No info" }}</td>
                     @endif
-                    @if (Auth::user()->role < 5)
+                    @if (Auth::user()->role <= 4)
                     <td>
                         @if ($user->id != 1)
                             <a href="{{ route('users.show', encrypt($user->id)) }}" class="btn btn-lg btn-outline-info">

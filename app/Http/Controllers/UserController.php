@@ -21,10 +21,21 @@ class UserController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->role > 2) return redirect()->route('home')->with('ERROR', 'Not autorized');
-        $users = User::where('status', 1)->get();
-        $index = 1;
-        return view('users.index', compact('users','index'));
+        try {
+            if (Auth::user()->role > 2) return redirect()->route('home')->with('ERROR', 'Not autorized');
+            if(Auth::user()->role <= 1){
+                $users = User::all();
+                $index = 1;
+                return view('users.index', compact('users','index'));
+            }
+            $users = User::where('status', 1)->get();
+            $index = 1;
+            return view('users.index', compact('users','index'));
+
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+
     }
 
     public function create()
@@ -120,16 +131,30 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        $user = User::where('id',$id)->where('status',1)->first();
-        $user->update(["active" => "N", "status" => 0, "deleted_at" => now(), "deleted_by" => Auth::user()->id]);
-        return redirect()->route("users")->with("success", "User deleted correctly");
+        try {
+            $user = User::where('id',Crypt::decrypt($id))->where('status',1)->first();
+            $user->update(["active" => "N", "status" => 0, "deleted_at" => now(), "deleted_by" => Auth::user()->id]);
+            return redirect()->route("users")->with("success", "User deleted correctly");
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+
     }
 
     public function cancel($id)
     {
-        $user = User::where('id',$id)->where('status',1)->first();
-        $user->update(["active" => "N", "cancel_at" => now(), "cancel_by"=>Auth::user()->id]);
-        return redirect()->route("users")->with("success", "user canceled correctly");
+        try {
+            $user = User::where('id',Crypt::decrypt($id))->where('status',1)->first();
+            $user->update([
+                "active" => "N",
+                "cancel_at" => now(),
+                "cancel_by"=>Auth::user()->id
+            ]);
+            return redirect()->route("users")->with("success", "user canceled correctly");
+        } catch (\Throwable $th) {
+            echo $th;
+        }
+
     }
 
     public function changePassword($id)

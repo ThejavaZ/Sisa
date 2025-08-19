@@ -48,7 +48,7 @@
                     Positions
                 @endif
             </a>
-            @if (Auth::user()->name == 0)
+            @if (Auth::user()->role == 0)
             <a class="nav-link" href="{{ route('branches') }}">
             <div class="sb-nav-link-icon"><i class="fas fa-shop"></i></div>
                 @if (Auth::user()->language == 1)
