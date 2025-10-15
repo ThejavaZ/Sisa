@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+# Sisa sistemas automatizados
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/SisaSistemas/Portal)
 =======
 # Sisa
