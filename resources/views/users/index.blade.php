@@ -29,7 +29,7 @@
         <i class="fas fa-fw fa-envelope"></i>
     </a>
 
-    @if (Auth::user()->role < 5)
+    @if (Auth::user()->role <= 4)
     <a class="btn btn-lg btn-outline-warning" href="{{ route('users.create') }}">
         <i class="fas fa-fw fa-plus"></i>
     </a>
@@ -57,15 +57,19 @@
                     <th>Activo</th>
                     @if (Auth::user()->role <= 1)
                     <th>Estado</th>
+
                     <th>Creado Por</th>
                     <th>Fecha de creacion</th>
                     <th>Creado hace</th>
+                    
                     <th>Actualizado Por</th>
                     <th>Fecha de actualización</th>
                     <th>Actualizado hace</th>
+                    
                     <th>Cancelado Por</th>
                     <th>Fecha de cancelacion</th>
                     <th>Cancelado hace</th>
+                    
                     <th>Eliminado Por</th>
                     <th>Fecha de eliminacion</th>
                     <th>Eliminado hace</th>
@@ -90,18 +94,22 @@
                     <th>Activo</th>
                     @if (Auth::user()->role <= 1)
                     <th>Estado</th>
+
                     <th>Creado Por</th>
-                    <th>Fecha de creado</th>
+                    <th>Fecha de creacion</th>
                     <th>Creado hace</th>
+                    
+                    <th>Actualizado Por</th>
+                    <th>Fecha de actualización</th>
                     <th>Actualizado hace</th>
-                    <th>Actualizado hace</th>
-                    <th>Actualizado</th>
+                    
+                    <th>Cancelado Por</th>
+                    <th>Fecha de cancelacion</th>
                     <th>Cancelado hace</th>
-                    <th>Cancelado hace</th>
-                    <th>Cancelado</th>
+                    
+                    <th>Eliminado Por</th>
+                    <th>Fecha de eliminacion</th>
                     <th>Eliminado hace</th>
-                    <th>Eliminado hace</th>
-                    <th>Eliminado</th>
                     @endif
                     @if (Auth::user()->role <= 4)
                     <th>Acciones</th>
@@ -133,7 +141,7 @@
 
                         @switch($user->role)
                             @case(0)
-                                <span class="badge bg-black">Root</span>
+                                <span class="badge bg-black">root</span>
                                 @break
 
                             @case(1)

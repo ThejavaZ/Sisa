@@ -48,7 +48,7 @@
                     Positions
                 @endif
             </a>
-            @if (Auth::user()->role == 0)
+            
             <a class="nav-link" href="{{ route('branches') }}">
             <div class="sb-nav-link-icon"><i class="fas fa-shop"></i></div>
                 @if (Auth::user()->language == 1)
@@ -75,7 +75,15 @@
                     Departments
                 @endif
             </a>
-            @endif
+
+            <a class="nav-link" href="{{ route('departments') }}">
+                <div class="sb-nav-link-icon"><i class="fas fa-brands fa-windows"></i></div>
+                @if (Auth::user()->language == 1)
+                    Sistemas Operativos
+                @else
+                    Operative sistem
+                @endif
+            </a>
 
 
             @if (Auth::user()->role <= 2)

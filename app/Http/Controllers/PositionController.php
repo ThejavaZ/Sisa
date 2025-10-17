@@ -13,6 +13,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use App\Models\Departments;
 
 
 class PositionController extends Controller
@@ -42,7 +43,7 @@ class PositionController extends Controller
             'level' => 'required|integer',
             'department_id' => 'required|integer',
             'description' => 'nullable|string|max:500',
-            'salary' => 'required|numeric|min:0',
+            'salary' => 'required|number|min:0',
             'active' => 'string|default:S',
             'status' => 'boolean|default:1',
         ]);
@@ -53,7 +54,7 @@ class PositionController extends Controller
             'department_id' => $data['department_id'],
             'description' => $data['description'],
             'salary' => $data['salary'],
-            'user_id' => Auth::user()->id,
+            'created_by' => Auth::user()->id,
             'active' => "S",
             'status' => 1, // Status by default
         ]);
