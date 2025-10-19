@@ -34,7 +34,7 @@
             Registrar nueva sucursal
         </div>
         <div class="card-body">
-            <form action="{{ route('branches.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('branches.store') }}" method="POST">
                 @csrf
                 @method('POST')
                 <div class="mb-3">
@@ -43,8 +43,8 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="name" class="form-label">Calle</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <label for="street" class="form-label">Calle</label>
+                    <input type="text" class="form-control" id="street" name="street" required>
                 </div>
 
                 <div class="mb-3">
@@ -78,7 +78,7 @@
                     </button>
 
 
-                    <a class="btn btn-secondary" href="{{ route('users') }}">
+                    <a class="btn btn-secondary" href="{{ route('branches') }}">
                         <i class="fas fa-arrow-left"></i>
                     </a>
                 </div>

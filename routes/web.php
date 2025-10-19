@@ -139,7 +139,7 @@ Route::middleware(['auth'])->group(function (){
         # --- Branches Routes ---
         Route::get('/branches',[BranchController::class, 'index'])->name('branches');
         Route::get('/branches/create',[BranchController::class, 'create'])->name('branches.create');
-        Route::post('/branches/store',[BranchController::class, 'show'])->name('branches.store');
+        Route::post('/branches/store',[BranchController::class, 'store'])->name('branches.store');
 
         Route::get('/branches/pdf/{id?}',[BranchController::class, 'pdf'])->name('branches.pdf');
         Route::get('/branches/docx/{id?}',[BranchController::class, 'docx'])->name('branches.docx');

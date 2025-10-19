@@ -123,7 +123,7 @@
 
                     <div class="mb-3">
                         <label for="emergency_contact" class="form-label">Numero de emergencia</label>
-                        <input type="text" class="form-control" name="emergency_contact" id="emergency_contact" placeholder="Numero de emergencia" required>
+                        <input type="text" class="form-control" name="emergency_contact" id="emergency_contact" placeholder="Numero de emergencia">
                     </div>
 
                     <div class="mb-3">

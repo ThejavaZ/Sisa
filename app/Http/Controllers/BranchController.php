@@ -36,8 +36,7 @@ class BranchController extends Controller
             'exterior_number' => 'required|string|max:20',
             'colony' => 'required|string|max:40',
             'zip_code' => 'required|string|max:10',
-            'phone' => 'required|string|max:20',
-            'is_main' => 'boolean',
+            'phone' => 'string|max:20',
         ]);
 
         $branch = Branch::create([
@@ -52,11 +51,9 @@ class BranchController extends Controller
             'created_by' => Auth::user()->id,
         ]);
 
-        if ($branch) {
-            return redirect()->route('branches')->with('success', 'Branch created successfully.');
-        } else {
-            return redirect()->back()->with('error', 'Failed to create branch.');
-        }
+        if ($branch) return redirect()->route('branches')->with('success', 'Branch created successfully.'); 
+        else return redirect()->back()->with('error', 'Failed to create branch.');
+        
     }
 
     public function show($id)

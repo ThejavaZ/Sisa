@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.main')
 
 @section('content')
     <h1>Edit Brand</h1>

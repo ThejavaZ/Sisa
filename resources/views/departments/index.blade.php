@@ -1,8 +1,37 @@
 @extends('layout.main')
 
+@section('top-title', 'departamentos')
+
+@section('title', 'departamentos')
+
+@section('breadcrumb')
+
+<li class="breadcrumb breadcrumb-item"><a href="{{ route('home') }}">Incio</a></li>
+<li class="breadcrumb breadcrumb-item active">Departamentos</li>
+
+@endsection
+
 @section('content')
-    <h1>Departments</h1>
-    <a href="{{ route('departments.create') }}" class="btn btn-primary">Create Department</a>
+
+    <div>
+        <a class="btn btn-lg btn-outline-danger" href="">
+            <i class="fas fa-file-pdf"></i>
+        </a>
+
+        <a class="btns btn-outline-danger" href="">
+            <i class="fas fa-fw fa-file-pdf"></i>
+        </a>
+        
+        <a class="btns btn-outline-danger" href="">
+            <i class="fas fa-file-pdf"></i>
+        </a>
+
+        <a class="btns btn-outline-danger" href="">
+            <i class="fas fa-file-pdf"></i>
+        </a>
+
+    </div>
+    
     <table class="table">
         <thead>
             <tr>

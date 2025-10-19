@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Reporte de Asignaciones</title>
+    <title>Reporte de puestos</title>
 </head>
 <body>
     <p>{{ $sms }}</p>
