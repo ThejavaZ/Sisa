@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::rename('job_positions ', 'positions');
+        if (Schema::hasTable('job_positions')) {
+            Schema::rename('job_positions', 'positions');
+        }
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::rename('job_positions ', 'positions');
+        if (Schema::hasTable('positions')) {
+            Schema::rename('positions', 'job_positions');
+        }
     }
+
 };

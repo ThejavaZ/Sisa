@@ -26,6 +26,7 @@
                         <h1 class="mt-4">
                             @yield('title', 'falta titlte')
                         </h1>
+                        <div id="app"></div>
                         <ol class="breadcrumb mb-4">
                             @yield('breadcrumb', 'falta breadcrumb')
                         </ol>
@@ -34,6 +35,7 @@
                 </main>
                 @include('partials.footer')
             </div>
+            
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
